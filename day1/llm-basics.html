@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LLM Basics - Day 1</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+</head>
+<body>
+  <header>
+    <div class="container header-content">
+      <div class="logo">
+        <h1>Gen<span>AI</span> Training</h1>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li class="dropdown">
+            <a href="#" class="active">Day 1: Foundations</a>
+            <div class="dropdown-content">
+              <a href="genai-evolution.html">GenAI Evolution</a>
+              <a href="llm-basics.html" class="active">LLM Basics</a>
+            </div>
+          </li>
+          <li class="dropdown">
+            <a href="#">Day 2: Frameworks & Tools</a>
+            <div class="dropdown-content">
+              <a href="../day2/frameworks.html">LLM Frameworks</a>
+              <a href="../day2/tools-mcp.html">Tools & MCP</a>
+              <a href="../day2/agents-vs-tools.html">Agents vs Tools</a>
+            </div>
+          </li>
+          <li class="dropdown">
+            <a href="#">Day 3: Applications</a>
+            <div class="dropdown-content">
+              <a href="../day3/rag.html">RAG Systems</a>
+              <a href="../day3/chatbots.html">Chatbots</a>
+              <a href="../day3/streamlit.html">Streamlit UI</a>
+            </div>
+          </li>
+          <li><a href="../notebooks/">Notebooks</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" style="background: linear-gradient(to right, #2c3e50, #3498db);">
+      <div class="container">
+        <h2>LLM Basics</h2>
+        <p>Understanding the core concepts and mechanics behind large language models</p>
+      </div>
+    </section>
+
+    <div class="container page-content">
+      <div class="card">
+        <h2>Learning Objectives</h2>
+        <ul>
+          <li>Understand tokenization and its impact on LLM processing</li>
+          <li>Learn how embeddings represent text in vector space</li>
+          <li>Master context window concepts and limitations</li>
+          <li>Explore sampling parameters and their effects on output</li>
+          <li>Practice basic prompt engineering techniques</li>
+          <li>Examine model evaluation methods</li>
+        </ul>
+      </div>
+
+      <h2>Session Overview</h2>
+      <p>This module covers the fundamental concepts behind large language models (LLMs). We'll explore how these models process and generate text, how they represent knowledge, and how various parameters affect their output. By the end of this session, you'll understand the inner workings of LLMs and be able to interact with them effectively.</p>
+
+      <div class="card">
+        <h3>Intermediate Section: Core LLM Concepts</h3>
+        <h4>Tokenization and Embeddings</h4>
+        <p>Tokenization is how LLMs break down text into manageable units:</p>
+        <ul>
+          <li>Words, subwords, or characters that form the model's vocabulary</li>
+          <li>Different tokenization approaches (BPE, WordPiece, SentencePiece)</li>
+          <li>Impact on model performance and multilingual capabilities</li>
+        </ul>
+        
+        <p>Embeddings translate tokens into numerical representations:</p>
+        <ul>
+          <li>Dense vector representations in high-dimensional space</li>
+          <li>Contextual vs. static embeddings</li>
+          <li>How semantic relationships are encoded in vector space</li>
+        </ul>
+        
+        <div class="example-box">
+          <h4>Example: Tokenization</h4>
+          <p>The word "tokenization" might be broken down into tokens:</p>
+          <p>"token", "ization" or "token", "iz", "ation"</p>
+          <p>Special tokens are added for model-specific purposes:</p>
+          <p>[BOS] = Beginning of sequence, [EOS] = End of sequence</p>
+        </div>
+        
+        <h4>Context Window Concepts</h4>
+        <p>The context window determines how much text an LLM can process at once:</p>
+        <ul>
+          <li>Measured in tokens (not characters or words)</li>
+          <li>Typical sizes range from 4K to 128K+ tokens</li>
+          <li>Determines the model's ability to reference information from earlier in the text</li>
+          <li>Impacts pricing and computational requirements</li>
+        </ul>
+        
+        <p>Context window management strategies:</p>
+        <ul>
+          <li>Chunking: Breaking documents into manageable pieces</li>
+          <li>Sliding windows: Moving the context through larger documents</li>
+          <li>Summarization: Condensing previous context</li>
+          <li>Strategic truncation: Removing less relevant content</li>
+        </ul>
+        
+        <h4>Language Modeling Fundamentals</h4>
+        <p>At their core, LLMs are next-token predictors:</p>
+        <ul>
+          <li>Given a sequence of tokens, predict the next most likely token</li>
+          <li>Auto-regressive generation: Each generated token becomes part of the context for subsequent tokens</li>
+          <li>Training objective: Minimize prediction error across massive text corpora</li>
+        </ul>
+        
+        <h4>Sampling Parameters</h4>
+        <p>These parameters control how LLMs generate text:</p>
+        
+        <div class="parameter-box">
+          <h5>Temperature</h5>
+          <p>Controls the randomness/creativity of outputs:</p>
+          <ul>
+            <li><strong>Low (0.1-0.4)</strong>: More deterministic, focused outputs</li>
+            <li><strong>Medium (0.5-0.7)</strong>: Balanced creativity and predictability</li>
+            <li><strong>High (0.8-1.0+)</strong>: More creative, diverse, unpredictable outputs</li>
+          </ul>
+          <p>Formula effect: Higher temperature flattens the probability distribution, giving low-probability tokens more chance of being selected.</p>
+        </div>
+        
+        <div class="parameter-box">
+          <h5>Top-p (Nucleus) Sampling</h5>
+          <p>Filters the token selection pool by cumulative probability:</p>
+          <ul>
+            <li>Consider only tokens whose cumulative probability reaches threshold p</li>
+            <li>Provides a dynamic cutoff based on the probability distribution</li>
+            <li>Common values range from 0.5 (more focused) to 0.95 (more diverse)</li>
+          </ul>
+          <p>Helps avoid both extremely unlikely tokens and over-constraining the model.</p>
+        </div>
+        
+        <div class="parameter-box">
+          <h5>Top-k Sampling</h5>
+          <p>Limits selection to the k most likely next tokens:</p>
+          <ul>
+            <li>Only the k most probable tokens are considered</li>
+            <li>Common values range from 40-50 (creative) to as low as 5-10 (focused)</li>
+            <li>Can be combined with temperature and top-p</li>
+          </ul>
+          <p>Helps prevent the model from selecting extremely improbable tokens.</p>
+        </div>
+        
+        <div class="example-box">
+          <h4>Example: Parameter Effects</h4>
+          <p><strong>Prompt</strong>: "The future of AI will be"</p>
+          
+          <p><strong>Temperature = 0.2</strong>: "The future of AI will be characterized by increasing integration into everyday applications and services, with a focus on improving efficiency and solving complex problems."</p>
+          
+          <p><strong>Temperature = 1.0</strong>: "The future of AI will be wildly unpredictable yet fascinating—perhaps blending into consciousness, creating art that transcends human imagination, or revealing entire new branches of mathematics we've never conceived."</p>
+        </div>
+        
+        <h4>Pre-training and Fine-tuning</h4>
+        <p>Modern LLM development follows a two-stage approach:</p>
+        <ul>
+          <li><strong>Pre-training</strong>: Self-supervised learning on massive general text corpora</li>
+          <li><strong>Fine-tuning</strong>: Supervised learning on specific tasks or domains</li>
+          <li>Specialized fine-tuning techniques: RLHF, instruction tuning, parameter-efficient methods (LoRA, QLoRA)</li>
+        </ul>
+        
+        <h4>Prompt Engineering Basics</h4>
+        <p>Effectively communicating with LLMs through prompts:</p>
+        <ul>
+          <li>Clear instructions with specific details</li>
+          <li>Role prompting ("You are an expert in...")</li>
+          <li>Few-shot learning with examples</li>
+          <li>Chain-of-thought reasoning</li>
+          <li>Output formatting instructions</li>
+        </ul>
+        
+        <h4>Evaluation Metrics</h4>
+        <p>How to measure LLM performance:</p>
+        <ul>
+          <li>Accuracy on specific tasks</li>
+          <li>Perplexity (how well the model predicts text)</li>
+          <li>Human evaluation (Likert scales, A/B testing)</li>
+          <li>Benchmark scores (MMLU, HellaSwag, TruthfulQA)</li>
+          <li>Task-specific metrics (BLEU, ROUGE for generation tasks)</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Advanced Section: LLM Internals</h3>
+        <h4>Transformer Architecture in Depth</h4>
+        <p>The transformer architecture powers modern LLMs:</p>
+        <ul>
+          <li><strong>Self-attention mechanism</strong>: How tokens relate to each other</li>
+          <li><strong>Position embeddings</strong>: Encoding token position information</li>
+          <li><strong>Feed-forward networks</strong>: Processing token representations</li>
+          <li><strong>Layer normalization</strong>: Stabilizing training</li>
+          <li><strong>Residual connections</strong>: Preserving information flow through deep networks</li>
+        </ul>
+        
+        <p>Architectural variations include:</p>
+        <ul>
+          <li>Decoder-only (GPT family, Llama)</li>
+          <li>Encoder-only (BERT family)</li>
+          <li>Encoder-decoder (T5, BART)</li>
+        </ul>
+        
+        <h4>Training Data Considerations</h4>
+        <p>The quality and composition of training data significantly impact model behavior:</p>
+        <ul>
+          <li>Data sources and filtering techniques</li>
+          <li>Balancing different domains and languages</li>
+          <li>Handling of toxic content and biases</li>
+          <li>Deduplication strategies</li>
+          <li>Synthetic data augmentation</li>
+        </ul>
+        
+        <h4>Optimization Techniques</h4>
+        <p>Advanced methods used to train large models efficiently:</p>
+        <ul>
+          <li>Distributed training across multiple GPUs/TPUs</li>
+          <li>Mixed precision training</li>
+          <li>Gradient accumulation and checkpointing</li>
+          <li>Optimizer innovations (AdamW, Lion)</li>
+          <li>Learning rate scheduling</li>
+        </ul>
+        
+        <h4>Inference Optimization</h4>
+        <p>Methods to improve inference speed and reduce costs:</p>
+        <ul>
+          <li><strong>KV-Caching</strong>: Storing key-value pairs to avoid recomputation</li>
+          <li><strong>Quantization</strong>: Reducing precision of weights (INT8, INT4)</li>
+          <li><strong>Pruning</strong>: Removing less important weights</li>
+          <li><strong>Distillation</strong>: Training smaller models to mimic larger ones</li>
+          <li><strong>Speculative decoding</strong>: Draft generation with smaller models</li>
+        </ul>
+        
+        <h4>Alignment Techniques</h4>
+        <p>Methods to align LLMs with human preferences and values:</p>
+        <ul>
+          <li><strong>RLHF (Reinforcement Learning from Human Feedback)</strong>
+            <ul>
+              <li>Training reward models from human preferences</li>
+              <li>Using reinforcement learning to optimize policy</li>
+            </ul>
+          </li>
+          <li><strong>Constitutional AI</strong>
+            <ul>
+              <li>Using explicit principles to guide model behavior</li>
+              <li>Self-critique and improvement loops</li>
+            </ul>
+          </li>
+          <li><strong>Direct Preference Optimization (DPO)</strong>
+            <ul>
+              <li>Directly optimizing preference differences</li>
+              <li>Avoiding separate reward model training</li>
+            </ul>
+          </li>
+        </ul>
+        
+        <h4>Latest Research Directions</h4>
+        <p>Cutting-edge areas in LLM development:</p>
+        <ul>
+          <li>Mixture-of-Experts (MoE) architectures</li>
+          <li>Multimodal capabilities (text, image, audio)</li>
+          <li>Long-context handling techniques</li>
+          <li>Reasoning and planning improvements</li>
+          <li>Tool use and augmentation</li>
+          <li>Factuality and reliability enhancements</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Hands-on Exercise: Parameter Exploration</h3>
+        <p>In this exercise, you'll experiment with different LLM parameters and observe their effects on model outputs:</p>
+        <ul>
+          <li>Test various temperature settings</li>
+          <li>Compare top-p and top-k sampling approaches</li>
+          <li>Experiment with context window limitations</li>
+          <li>Practice different prompt engineering techniques</li>
+        </ul>
+        
+        <a href="../notebooks/parameter-exploration.html" class="btn">Open Exercise</a>
+      </div>
+
+      <div class="module-navigation">
+        <div class="nav-links">
+          <a href="genai-evolution.html" class="prev-link">← Previous: GenAI Evolution</a>
+          <a href="../day2/frameworks.html" class="next-link">Next: LLM Frameworks →</a>
+        </div>
+        
+        <button class="mark-complete" data-section="llm-basics">Mark as Complete</button>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="genai-evolution.html">GenAI Evolution</a></li>
+            <li><a href="llm-basics.html" class="active">LLM Basics</a></li>
+            <li><a href="../day2/frameworks.html">LLM Frameworks</a></li>
+            <li><a href="../day3/rag.html">RAG Systems</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Resources</h3>
+          <ul>
+            <li><a href="../notebooks/">Python Notebooks</a></li>
+            <li><a href="../resources/glossary.html">GenAI Glossary</a></li>
+            <li><a href="../resources/reading.html">Further Reading</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="copyright">
+        <p>&copy; 2025 GenAI Training. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+  <script src="../js/main.js"></script>
+</body>
+</html>

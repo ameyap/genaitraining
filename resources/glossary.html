@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GenAI Glossary - GenAI Training</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <div class="container header-content">
+      <div class="logo">
+        <h1>Gen<span>AI</span> Training</h1>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li class="dropdown">
+            <a href="#">Day 1: Foundations</a>
+            <div class="dropdown-content">
+              <a href="../day1/genai-evolution.html">GenAI Evolution</a>
+              <a href="../day1/llm-basics.html">LLM Basics</a>
+            </div>
+          </li>
+          <li class="dropdown">
+            <a href="#">Day 2: Frameworks & Tools</a>
+            <div class="dropdown-content">
+              <a href="../day2/frameworks.html">LLM Frameworks</a>
+              <a href="../day2/tools-mcp.html">Tools & MCP</a>
+              <a href="../day2/agents-vs-tools.html">Agents vs Tools</a>
+            </div>
+          </li>
+          <li class="dropdown">
+            <a href="#">Day 3: Applications</a>
+            <div class="dropdown-content">
+              <a href="../day3/rag.html">RAG Systems</a>
+              <a href="../day3/chatbots.html">Chatbots</a>
+              <a href="../day3/streamlit.html">Streamlit UI</a>
+            </div>
+          </li>
+          <li><a href="../notebooks/">Notebooks</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" style="background: linear-gradient(to right, #2c3e50, #c0392b);">
+      <div class="container">
+        <h2>GenAI Glossary</h2>
+        <p>Essential terminology for generative AI development</p>
+      </div>
+    </section>
+
+    <div class="container page-content">
+      <div class="card">
+        <h2>About This Glossary</h2>
+        <p>This glossary provides definitions for key terms and concepts in the field of generative AI. Whether you're new to the field or need a quick reference, these definitions will help you understand the terminology used throughout the training materials.</p>
+      </div>
+
+      <div class="glossary-section">
+        <h2 id="a">A</h2>
+        
+        <div class="glossary-item">
+          <h3>Alignment</h3>
+          <p>The process of training an AI system to behave according to human values, intentions, and expectations. Includes techniques like RLHF and Constitutional AI.</p>
+        </div>
+        
+        <div class="glossary-item">
+          <h3>Attention Mechanism</h3>
+          <p>A neural network component that enables models to focus on specific parts of input sequences when generating outputs. The core innovation behind transformer architecture.</p>
+        </div>
+        
+        <div class="glossary-item">
+          <h3>Agent</h3>
+          <p>An AI system capable of autonomous or semi-autonomous action in an environment, often involving planning, decision-making, and tool use to accomplish tasks.</p>
+        </div>
+        
+        <div class="glossary-item">
+          <h3>Auto-regressive Model</h3>
+          <p>A model that generates outputs sequentially, with each new token conditioned on previously generated tokens. GPT models are examples of auto-regressive language models.</p>
+        </div>
+      </div>
+
+      <div class="glossary-section">
+        <h2 id="c">C</h2>
+        
+        <div class="glossary-item">
+          <h3>Context Window</h3>
+          <p>The maximum number of tokens a language model can process at once, including both the input prompt and the generated output. Determines how much information the model can consider when generating responses.</p>
+        </div>
+        
+        <div class="glossary-item">
+          <h3>Chunking</h3>
+          <p>The process of breaking down documents or text into smaller segments for more effective processing, embedding, and retrieval in systems like RAG.</p>
+        </div>
+        
+        <div class="glossary-item">
+          <h3>Constitutional AI</h3>
+          <p>An approach to AI alignment where models are guided by explicit principles or rules (a "constitution") and trained to critique and improve their own outputs according to these principles.</p>
+        </div>
+      </div>
+
+      <div class="glossary-section">
+        <h2 id="e">E</h2>
+        
+        <div class="glossary-item">
+          <h3>Embedding</h3>
+          <p>A numerical vector representation of text, images, or other data that captures semantic meaning and enables mathematical operations like similarity comparisons.</p>
+        </div>
+
+        <div class="glossary-item">
+          <h3>Embeddings Model</h3>
+          <p>A specialized model designed to convert text or other inputs into vector embeddings that capture semantic relationships for use in search, clustering, or as inputs to other models.</p>
+        </div>
+      </div>
+
+      <div class="glossary-section">
+        <h2 id="f">F</h2>
+        
+        <div class="glossary-item">
+          <h3>Few-shot Learning</h3>
+          <p>The ability of a model to perform a task with only a few examples provided in the prompt, rather than requiring extensive fine-tuning.</p>
+        </div>
+        
+        <div class="glossary-item">
+          <h3>Fine-tuning</h3>
+          <p>The process of further training a pre-trained model on a specific dataset or for a specific task to improve its performance in that domain.</p>
+        </div>
+      </div>
+
+      <div class="glossary-section">
+        <h2 id="h">H</h2>
+        
+        <div class="glossary-item">
+          <h3>Hallucination</h3>
+          <p>When an AI model generates content that is incorrect, misleading, or not grounded in provided context or real-world facts.</p>
+        </div>
+      </div>
+
+      <div class="glossary-section">
+        <h2 id="l">L</h2>
+        
+        <div class="glossary-item">
+          <h3>LangChain</h3>
+          <p>A framework for developing applications with LLMs through composable components for working with language models, prompts, memory, and more.</p>
+        </div>
+        
+        <div class="glossary-item">
+          <h3>LangGraph</h3>
+          <p>A framework built on LangChain that uses a graph-based approach to create stateful, multi-step workflows for language model applications.</p>
+        </div>
+        
+        <div class="glossary-item">
+          <h3>LLM (Large Language Model)</h3>
+          <p>A type of AI model trained on vast amounts of text data to understand and generate human-like text. Examples include GPT-4, Claude, and Llama.</p>
+        </div>
+        
+        <div class="glossary-item">
+          <h3>LoRA (Low-Rank Adaptation)</h3>
+          <p>A parameter-efficient fine-tuning technique that significantly reduces the number of trainable parameters by focusing on low-rank updates to pre-trained weights.</p>
+        </div>
+      </div>
+
+      <div class="glossary-section">
+        <h2 id="m">M</h2>
+        
+        <div class="glossary-item">
+          <h3>MCP (Model Context Protocol)</h3>
+          <p>A standardized protocol for connecting language models to external tools, systems, and data sources, allowing models to perform actions beyond their training.</p>
+        </div>
+        
+        <div class="glossary-item">
+          <h3>Multimodal AI</h3>
+          <p>AI systems capable of processing and generating content across multiple types of data, such as text, images, audio, and video.</p>
+        </div>
+        
+        <div class="glossary-item">
+          <h3>Mixture of Experts (MoE)</h3>
+          <p>A neural network architecture that routes inputs to different specialized sub-networks ("experts") based on the input type, enabling larger and more efficient models.</p>
+        </div>
+      </div>
+
+      <div class="glossary-section">
+        <h2 id="p">P</h2>
+        
+        <div class="glossary-item">
+          <h3>Parameter</h3>
+          <p>A value in a neural network that is learned during training. Large language models typically have billions to trillions of parameters that encode learned patterns from training data.</p>
+        </div>
+        
+        <div class="glossary-item">
+          <h3>Prompt Engineering</h3>
+          <p>The practice of designing and optimizing input prompts to effectively communicate with and control the output of language models.</p>
+        </div>
+        
+        <div class="glossary-item">
+          <h3>Pre-training</h3>
+          <p>The initial training phase of an LLM on a large corpus of text data, where it learns general language understanding before any task-specific fine-tuning.</p>
+        </div>
+      </div>
+
+      <div class="glossary-section">
+        <h2 id="q">Q</h2>
+        
+        <div class="glossary-item">
+          <h3>Quantization</h3>
+          <p>A technique that reduces model size and inference time by representing weights with lower precision (e.g., converting 32-bit floating point numbers to 8-bit or 4-bit integers).</p>
+        </div>
+      </div>
+
+      <div class="glossary-section">
+        <h2 id="r">R</h2>
+        
+        <div class="glossary-item">
+          <h3>RAG (Retrieval-Augmented Generation)</h3>
+          <p>An approach that enhances language model outputs by retrieving relevant information from external knowledge sources and incorporating it into the context provided to the model.</p>
+        </div>
+        
+        <div class="glossary-item">
+          <h3>RLHF (Reinforcement Learning from Human Feedback)</h3>
+          <p>A technique for training language models using human preferences, where a reward model is trained on human comparisons of outputs and then used to optimize the language model.</p>
+        </div>
+        
+        <div class="glossary-item">
+          <h3>ReAct (Reasoning + Acting)</h3>
+          <p>A pattern for agent behavior that interleaves reasoning steps with actions, allowing models to plan, act, and reflect in an iterative process.</p>
+        </div>
+      </div>
+
+      <div class="glossary-section">
+        <h2 id="t">T</h2>
+        
+        <div class="glossary-item">
+          <h3>Temperature</h3>
+          <p>A parameter that controls the randomness of language model outputs. Higher values (e.g., 0.8-1.0) produce more creative, diverse responses, while lower values (e.g., 0.2-0.4) yield more deterministic, focused outputs.</p>
+        </div>
+        
+        <div class="glossary-item">
+          <h3>Tokenization</h3>
+          <p>The process of converting text into smaller units (tokens) that can be processed by a language model. Tokens may be words, subwords, or individual characters.</p>
+        </div>
+        
+        <div class="glossary-item">
+          <h3>Top-k Sampling</h3>
+          <p>A text generation strategy that limits token selection to the k most probable next tokens, filtering out less likely options.</p>
+        </div>
+        
+        <div class="glossary-item">
+          <h3>Top-p (Nucleus) Sampling</h3>
+          <p>A text generation strategy that selects from the smallest set of tokens whose cumulative probability exceeds the threshold p, providing a dynamic cutoff based on probability distribution.</p>
+        </div>
+        
+        <div class="glossary-item">
+          <h3>Transformer</h3>
+          <p>A neural network architecture introduced in 2017 that relies on self-attention mechanisms to process sequential data in parallel, forming the foundation of modern language models.</p>
+        </div>
+        
+        <div class="glossary-item">
+          <h3>Tool Calling</h3>
+          <p>The ability of an LLM to generate structured calls to external tools or APIs, enabling it to perform actions outside its training data.</p>
+        </div>
+      </div>
+
+      <div class="glossary-section">
+        <h2 id="v">V</h2>
+        
+        <div class="glossary-item">
+          <h3>Vector Database</h3>
+          <p>A specialized database designed to store and efficiently query vector embeddings, enabling semantic search and similarity matching for RAG and other applications.</p>
+        </div>
+      </div>
+
+      <div class="glossary-section">
+        <h2 id="z">Z</h2>
+        
+        <div class="glossary-item">
+          <h3>Zero-shot Learning</h3>
+          <p>The ability of a model to perform tasks it wasn't explicitly trained on, without any examples provided in the prompt.</p>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="../day1/genai-evolution.html">GenAI Evolution</a></li>
+            <li><a href="../day1/llm-basics.html">LLM Basics</a></li>
+            <li><a href="../day2/tools-mcp.html">Tools & MCP</a></li>
+            <li><a href="../day3/rag.html">RAG Systems</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Resources</h3>
+          <ul>
+            <li><a href="../notebooks/">Python Notebooks</a></li>
+            <li><a href="glossary.html" class="active">GenAI Glossary</a></li>
+            <li><a href="reading.html">Further Reading</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="copyright">
+        <p>&copy; 2025 GenAI Training. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>
