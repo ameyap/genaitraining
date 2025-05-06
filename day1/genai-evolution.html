@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GenAI Evolution - Day 1</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+</head>
+<body>
+  <header>
+    <div class="container header-content">
+      <div class="logo">
+        <h1>Gen<span>AI</span> Training</h1>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li class="dropdown">
+            <a href="#" class="active">Day 1: Foundations</a>
+            <div class="dropdown-content">
+              <a href="genai-evolution.html" class="active">GenAI Evolution</a>
+              <a href="llm-basics.html">LLM Basics</a>
+            </div>
+          </li>
+          <li class="dropdown">
+            <a href="#">Day 2: Frameworks & Tools</a>
+            <div class="dropdown-content">
+              <a href="../day2/frameworks.html">LLM Frameworks</a>
+              <a href="../day2/tools-mcp.html">Tools & MCP</a>
+              <a href="../day2/agents-vs-tools.html">Agents vs Tools</a>
+            </div>
+          </li>
+          <li class="dropdown">
+            <a href="#">Day 3: Applications</a>
+            <div class="dropdown-content">
+              <a href="../day3/rag.html">RAG Systems</a>
+              <a href="../day3/chatbots.html">Chatbots</a>
+              <a href="../day3/streamlit.html">Streamlit UI</a>
+            </div>
+          </li>
+          <li><a href="../notebooks/">Notebooks</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" style="background: linear-gradient(to right, #2c3e50, #4b6cb7);">
+      <div class="container">
+        <h2>GenAI Evolution</h2>
+        <p>From early AI concepts to the breakthrough of modern generative models</p>
+      </div>
+    </section>
+
+    <div class="container page-content">
+      <div class="card">
+        <h2>Learning Objectives</h2>
+        <ul>
+          <li>Understand the historical progression of AI to modern GenAI</li>
+          <li>Recognize key breakthroughs in deep learning that enabled GenAI</li>
+          <li>Examine the development of transformer architecture</li>
+          <li>Analyze how model scaling has impacted capabilities</li>
+          <li>Evaluate the evolution of multimodal AI systems</li>
+        </ul>
+      </div>
+
+      <h2>Session Overview</h2>
+      <p>This module covers the evolution of Generative AI from its earliest conceptual roots to today's advanced models. We'll explore how fundamental AI concepts evolved into the transformer architecture that powers modern language models, and trace the development through key research milestones.</p>
+
+      <div class="card">
+        <h3>Intermediate Section: History of AI to GenAI</h3>
+        <h4>From Rule-Based Systems to Machine Learning</h4>
+        <p>The journey of AI begins with symbolic AI and expert systems in the 1950s-1980s, which relied on hardcoded rules and logical inference. These systems were limited by the "knowledge acquisition bottleneck" - the difficulty of encoding human knowledge as explicit rules.</p>
+        
+        <p>The paradigm shift came with machine learning approaches that could learn patterns from data:</p>
+        <ul>
+          <li><strong>1950s-1960s</strong>: Early neural networks (Perceptron)</li>
+          <li><strong>1980s-1990s</strong>: Backpropagation algorithm enables practical neural network training</li>
+          <li><strong>1990s-2000s</strong>: Support Vector Machines and statistical ML dominate</li>
+          <li><strong>2006-2012</strong>: Deep learning revival with unsupervised pre-training</li>
+        </ul>
+        
+        <h4>Deep Learning Breakthrough</h4>
+        <p>The deep learning revolution accelerated in 2012 with AlexNet winning the ImageNet competition, demonstrating that deep convolutional neural networks could significantly outperform traditional computer vision techniques.</p>
+        
+        <p>Key developments in generative models followed:</p>
+        <ul>
+          <li><strong>2014</strong>: Generative Adversarial Networks (GANs) introduced by Ian Goodfellow et al.</li>
+          <li><strong>2015</strong>: Variational Autoencoders (VAEs) gain popularity for image generation</li>
+          <li><strong>2016-2017</strong>: Early sequence-to-sequence models for text generation</li>
+        </ul>
+        
+        <h4>The Emergence of Transformer Architecture</h4>
+        <p>The watershed moment for modern GenAI came in 2017 with the publication of "Attention Is All You Need" by Vaswani et al., introducing the Transformer architecture:</p>
+        <ul>
+          <li>Replaced recurrent networks with attention mechanisms</li>
+          <li>Enabled parallel processing of sequences</li>
+          <li>Improved handling of long-range dependencies</li>
+          <li>Provided the foundation for all modern LLMs</li>
+        </ul>
+        
+        <h4>Key Milestones in NLP and Computer Vision</h4>
+        <p>The transformer architecture quickly spread across AI domains:</p>
+        <ul>
+          <li><strong>2018</strong>: BERT demonstrated the power of bidirectional pre-training</li>
+          <li><strong>2019</strong>: GPT-2 showed impressive text generation capabilities</li>
+          <li><strong>2020</strong>: GPT-3 scaled to 175B parameters, achieving remarkable few-shot learning</li>
+          <li><strong>2021</strong>: DALL-E and CLIP demonstrated powerful text-to-image capabilities</li>
+          <li><strong>2022</strong>: ChatGPT brought conversational AI to mainstream adoption</li>
+          <li><strong>2023-2024</strong>: Multimodal models like GPT-4, Claude 3, and Gemini handle text, images, and more</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Advanced Section: Generative AI Architectures Deep Dive</h3>
+        <h4>Encoder-Decoder Architecture Explained</h4>
+        <p>The encoder-decoder pattern forms the foundation of many sequence-to-sequence tasks:</p>
+        <ul>
+          <li><strong>Encoder</strong>: Processes the input sequence into a context-rich representation</li>
+          <li><strong>Decoder</strong>: Generates output sequence based on encoded representation</li>
+        </ul>
+        
+        <p>Variations of this architecture include:</p>
+        <ul>
+          <li><strong>Encoder-only</strong>: Models like BERT focused on understanding (classification, sentiment)</li>
+          <li><strong>Decoder-only</strong>: Models like GPT focused on generation (next token prediction)</li>
+          <li><strong>Encoder-decoder</strong>: Models like T5 designed for transformation tasks (translation, summarization)</li>
+        </ul>
+        
+        <h4>Attention Mechanisms in Detail</h4>
+        <p>Attention revolutionized sequence modeling by dynamically focusing on relevant parts of input:</p>
+        <ul>
+          <li><strong>Self-attention</strong>: Relates positions within a sequence to compute representations</li>
+          <li><strong>Multi-head attention</strong>: Allows focusing on different aspects of information in parallel</li>
+          <li><strong>Cross-attention</strong>: Relates positions between sequences (encoder to decoder)</li>
+        </ul>
+        
+        <p>The attention formula computes weighted sums using queries (Q), keys (K), and values (V):</p>
+        <pre><code>Attention(Q, K, V) = softmax(QK^T / sqrt(d_k))V</code></pre>
+        
+        <h4>Types of Generative Models</h4>
+        <p>Modern generative AI encompasses several architectural paradigms:</p>
+        
+        <ul>
+          <li><strong>Autoregressive Models</strong>: Generate outputs sequentially (one token at a time)
+            <ul>
+              <li>Examples: GPT series, PaLM, Claude, Llama</li>
+              <li>Training: Next-token prediction with teacher forcing</li>
+            </ul>
+          </li>
+          
+          <li><strong>Diffusion Models</strong>: Learn to denoise gradually corrupted data
+            <ul>
+              <li>Examples: Stable Diffusion, DALL-E 3, Midjourney</li>
+              <li>Training: Forward diffusion adds noise; reverse diffusion generates images</li>
+            </ul>
+          </li>
+          
+          <li><strong>Variational Autoencoders (VAEs)</strong>: Learn compressed latent representations
+            <ul>
+              <li>Examples: Often used as components in larger systems</li>
+              <li>Training: Minimize reconstruction loss + KL divergence</li>
+            </ul>
+          </li>
+          
+          <li><strong>Generative Adversarial Networks (GANs)</strong>: Generator vs discriminator training
+            <ul>
+              <li>Examples: StyleGAN, BigGAN</li>
+              <li>Training: Adversarial minimax game between two networks</li>
+            </ul>
+          </li>
+        </ul>
+        
+        <h4>Training Methodologies Evolution</h4>
+        <p>The progression of training approaches has been crucial to GenAI advances:</p>
+        
+        <ul>
+          <li><strong>Pre-training → Fine-tuning</strong>: Transfer learning from general to specific tasks</li>
+          <li><strong>Self-supervised learning</strong>: Leveraging unlabeled data at massive scale</li>
+          <li><strong>Reinforcement Learning from Human Feedback (RLHF)</strong>: Aligning models with human preferences</li>
+          <li><strong>Constitutional AI</strong>: Self-improvement through AI feedback loops</li>
+          <li><strong>Mixture-of-Experts</strong>: Conditional activation of specialized sub-networks</li>
+          <li><strong>Multimodal training</strong>: Learning across text, images, audio in unified representations</li>
+        </ul>
+        
+        <p>The scaling hypothesis has been validated repeatedly: larger models with more compute and data consistently demonstrate emergent capabilities not present in smaller models.</p>
+      </div>
+
+      <div class="card">
+        <h3>Hands-on Exercise</h3>
+        <p>In the next section, we'll explore an interactive timeline of GenAI breakthroughs and analyze the architectural differences between key models. This will help reinforce your understanding of the evolutionary path of generative AI technologies.</p>
+        
+        <a href="../notebooks/genai-evolution-timeline.html" class="btn">Open Interactive Timeline</a>
+      </div>
+
+      <div class="module-navigation">
+        <div class="nav-links">
+          <a href="../index.html" class="prev-link">← Back to Overview</a>
+          <a href="llm-basics.html" class="next-link">Next: LLM Basics →</a>
+        </div>
+        
+        <button class="mark-complete" data-section="genai-evolution">Mark as Complete</button>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="genai-evolution.html" class="active">GenAI Evolution</a></li>
+            <li><a href="llm-basics.html">LLM Basics</a></li>
+            <li><a href="../day2/frameworks.html">LLM Frameworks</a></li>
+            <li><a href="../day3/rag.html">RAG Systems</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Resources</h3>
+          <ul>
+            <li><a href="../notebooks/">Python Notebooks</a></li>
+            <li><a href="../resources/glossary.html">GenAI Glossary</a></li>
+            <li><a href="../resources/reading.html">Further Reading</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="copyright">
+        <p>&copy; 2025 GenAI Training. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+  <script src="../js/main.js"></script>
+</body>
+</html>

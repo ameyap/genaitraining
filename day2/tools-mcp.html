@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tools & MCP Integration - Day 2</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+</head>
+<body>
+  <header>
+    <div class="container header-content">
+      <div class="logo">
+        <h1>Gen<span>AI</span> Training</h1>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li class="dropdown">
+            <a href="#">Day 1: Foundations</a>
+            <div class="dropdown-content">
+              <a href="../day1/genai-evolution.html">GenAI Evolution</a>
+              <a href="../day1/llm-basics.html">LLM Basics</a>
+            </div>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="active">Day 2: Frameworks & Tools</a>
+            <div class="dropdown-content">
+              <a href="frameworks.html">LLM Frameworks</a>
+              <a href="tools-mcp.html" class="active">Tools & MCP</a>
+              <a href="agents-vs-tools.html">Agents vs Tools</a>
+            </div>
+          </li>
+          <li class="dropdown">
+            <a href="#">Day 3: Applications</a>
+            <div class="dropdown-content">
+              <a href="../day3/rag.html">RAG Systems</a>
+              <a href="../day3/chatbots.html">Chatbots</a>
+              <a href="../day3/streamlit.html">Streamlit UI</a>
+            </div>
+          </li>
+          <li><a href="../notebooks/">Notebooks</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" style="background: linear-gradient(to right, #2c3e50, #27ae60);">
+      <div class="container">
+        <h2>Tools & MCP Integration</h2>
+        <p>Extending LLM capabilities through tool calling and the Model Context Protocol</p>
+      </div>
+    </section>
+
+    <div class="container page-content">
+      <div class="card">
+        <h2>Learning Objectives</h2>
+        <ul>
+          <li>Understand the concept of tool calling and its importance in LLM applications</li>
+          <li>Learn the fundamentals of the Model Context Protocol (MCP)</li>
+          <li>Explore different types of tools and integration patterns</li>
+          <li>Implement custom MCP servers for specialized functionalities</li>
+          <li>Apply security best practices for tool integrations</li>
+        </ul>
+      </div>
+
+      <h2>Session Overview</h2>
+      <p>This module explores how modern LLMs can be extended beyond their base capabilities through tool integration. We'll cover the foundational concepts of tool calling, dive into the Model Context Protocol architecture, and learn how to implement custom tools and MCP servers.</p>
+
+      <div class="card">
+        <h3>Intermediate Section: Understanding Tool Integration</h3>
+        <h4>Tool Calling Fundamentals</h4>
+        <p>Tool calling enables LLMs to perform actions beyond their training data by connecting to external systems:</p>
+        <ul>
+          <li>Overcoming LLM limitations (outdated knowledge, computational abilities)</li>
+          <li>Providing real-time data access</li>
+          <li>Enabling actions in external systems</li>
+          <li>Enhancing reliability through verified information</li>
+        </ul>
+        
+        <p>The basic flow of tool calling:</p>
+        <ol>
+          <li>LLM recognizes when external capabilities are needed</li>
+          <li>LLM formats a structured call to the appropriate tool</li>
+          <li>External system processes the call and returns results</li>
+          <li>LLM incorporates results into its response</li>
+        </ol>
+        
+        <h4>API Integration Patterns</h4>
+        <p>Common patterns for integrating tools with LLMs include:</p>
+        <ul>
+          <li><strong>Function Calling</strong>: Model generates structured function calls</li>
+          <li><strong>JSON Mode</strong>: Model outputs valid JSON for direct API consumption</li>
+          <li><strong>ReAct Pattern</strong>: Reasoning → Action → Observation loop</li>
+          <li><strong>Structured Output</strong>: Using schemas to constrain responses</li>
+          <li><strong>Chaining</strong>: Sequential tool calls building on previous results</li>
+        </ul>
+        
+        <h4>Types of Tools</h4>
+        <p>Tools can be categorized based on their primary purpose:</p>
+        <ul>
+          <li><strong>Data Retrieval</strong>: Access to databases, knowledge bases, or web services
+            <ul>
+              <li>Search engines, vector databases, APIs</li>
+              <li>Real-time data feeds (weather, stocks)</li>
+            </ul>
+          </li>
+          
+          <li><strong>Computation</strong>: Performing calculations or specialized processing
+            <ul>
+              <li>Mathematical operations</li>
+              <li>Data analysis and visualization</li>
+              <li>Code execution environments</li>
+            </ul>
+          </li>
+          
+          <li><strong>External Services</strong>: Interacting with third-party systems
+            <ul>
+              <li>Calendar management</li>
+              <li>Email and messaging</li>
+              <li>Document processing</li>
+            </ul>
+          </li>
+          
+          <li><strong>Control Flow</strong>: Tools that manage the execution path
+            <ul>
+              <li>Task planners</li>
+              <li>Decision makers</li>
+              <li>Error handlers</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Advanced Section: MCP Server Architecture</h3>
+        <h4>Model Context Protocol Explained</h4>
+        <p>The Model Context Protocol (MCP) standardizes how AI assistants connect to external systems:</p>
+        <ul>
+          <li>Open protocol for tool connection</li>
+          <li>Standardized request/response format</li>
+          <li>Support for diverse tool types</li>
+          <li>Runtime tool discovery and documentation</li>
+        </ul>
+        
+        <p>MCP architecture components:</p>
+        <ul>
+          <li><strong>MCP Client</strong>: LLM or agent making tool requests</li>
+          <li><strong>MCP Server</strong>: Exposes tools as services</li>
+          <li><strong>Tool Registry</strong>: Manages available tools and their schemas</li>
+          <li><strong>Request Handler</strong>: Processes incoming tool calls</li>
+          <li><strong>Response Formatter</strong>: Structures tool outputs for the LLM</li>
+        </ul>
+        
+        <h4>Building Custom MCP Servers</h4>
+        <p>Steps to create your own MCP server:</p>
+        <ol>
+          <li>Define tool interfaces using JSONSchema</li>
+          <li>Implement tool business logic</li>
+          <li>Create the server application</li>
+          <li>Configure tool discovery</li>
+          <li>Implement authentication and security</li>
+          <li>Deploy and manage the server</li>
+        </ol>
+        
+        <p>Example of a basic MCP server structure:</p>
+        <pre><code class="language-python">from typing import Dict, Any
+from fastapi import FastAPI, HTTPException
+
+app = FastAPI()
+
+# Tool registry - defines available tools
+TOOL_REGISTRY = {
+    "weather": {
+        "description": "Get current weather for a location",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "location": {
+                    "type": "string",
+                    "description": "City name or location"
+                }
+            },
+            "required": ["location"]
+        }
+    }
+}
+
+# Tool implementation
+async def get_weather(location: str) -> Dict[str, Any]:
+    # Implementation to fetch weather data
+    return {
+        "temperature": 72,
+        "conditions": "sunny",
+        "location": location
+    }
+
+# MCP endpoint
+@app.post("/mcp/v1/tools")
+async def handle_tool_call(request: Dict[str, Any]):
+    tool_name = request.get("name")
+    parameters = request.get("parameters", {})
+    
+    if tool_name not in TOOL_REGISTRY:
+        raise HTTPException(status_code=404, detail=f"Tool {tool_name} not found")
+    
+    if tool_name == "weather":
+        result = await get_weather(parameters.get("location"))
+        return {"status": "success", "result": result}
+        
+    return {"status": "error", "message": "Unknown tool"}
+
+# Tool discovery endpoint
+@app.get("/mcp/v1/tools")
+async def list_tools():
+    return {"tools": TOOL_REGISTRY}
+</code></pre>
+        
+        <h4>Tool Discovery and Registration</h4>
+        <p>MCP provides mechanisms for dynamic tool discovery:</p>
+        <ul>
+          <li>Runtime tool registration and de-registration</li>
+          <li>Tool documentation through JSONSchema</li>
+          <li>Capability advertising to LLMs</li>
+          <li>Versioning for backward compatibility</li>
+        </ul>
+        
+        <h4>Security and Access Control</h4>
+        <p>Critical considerations for secure tool integration:</p>
+        <ul>
+          <li><strong>Authentication</strong>: Verify caller identity</li>
+          <li><strong>Authorization</strong>: Control what tools can be accessed</li>
+          <li><strong>Input Validation</strong>: Sanitize and validate all parameters</li>
+          <li><strong>Rate Limiting</strong>: Prevent abuse and DoS attacks</li>
+          <li><strong>Audit Logging</strong>: Record all tool calls for monitoring</li>
+          <li><strong>Principle of Least Privilege</strong>: Restrict tool capabilities</li>
+        </ul>
+        
+        <h4>Debugging and Monitoring Tools</h4>
+        <p>Essential capabilities for maintaining healthy MCP systems:</p>
+        <ul>
+          <li>Request/response logging</li>
+          <li>Performance metrics collection</li>
+          <li>Error tracking and alerts</li>
+          <li>Request tracing across systems</li>
+          <li>Usage analytics</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Hands-on Exercise</h3>
+        <p>In this exercise, we'll build a simple MCP server that provides several useful tools:</p>
+        <ul>
+          <li>A weather information tool</li>
+          <li>A calculator tool for mathematical operations</li>
+          <li>A knowledge base search tool</li>
+        </ul>
+        
+        <a href="../notebooks/mcp-server-example.html" class="btn">Open Tutorial Notebook</a>
+      </div>
+
+      <div class="module-navigation">
+        <div class="nav-links">
+          <a href="frameworks.html" class="prev-link">← Previous: LLM Frameworks</a>
+          <a href="agents-vs-tools.html" class="next-link">Next: Agents vs Tools →</a>
+        </div>
+        
+        <button class="mark-complete" data-section="tools-mcp">Mark as Complete</button>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="../day1/genai-evolution.html">GenAI Evolution</a></li>
+            <li><a href="../day1/llm-basics.html">LLM Basics</a></li>
+            <li><a href="frameworks.html">LLM Frameworks</a></li>
+            <li><a href="tools-mcp.html" class="active">Tools & MCP</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Resources</h3>
+          <ul>
+            <li><a href="../notebooks/">Python Notebooks</a></li>
+            <li><a href="../resources/glossary.html">GenAI Glossary</a></li>
+            <li><a href="../resources/reading.html">Further Reading</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="copyright">
+        <p>&copy; 2025 GenAI Training. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+  <script src="../js/main.js"></script>
+</body>
+</html>

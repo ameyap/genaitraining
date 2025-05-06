@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Python Notebooks - GenAI Training</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <div class="container header-content">
+      <div class="logo">
+        <h1>Gen<span>AI</span> Training</h1>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li class="dropdown">
+            <a href="#">Day 1: Foundations</a>
+            <div class="dropdown-content">
+              <a href="../day1/genai-evolution.html">GenAI Evolution</a>
+              <a href="../day1/llm-basics.html">LLM Basics</a>
+            </div>
+          </li>
+          <li class="dropdown">
+            <a href="#">Day 2: Frameworks & Tools</a>
+            <div class="dropdown-content">
+              <a href="../day2/frameworks.html">LLM Frameworks</a>
+              <a href="../day2/tools-mcp.html">Tools & MCP</a>
+              <a href="../day2/agents-vs-tools.html">Agents vs Tools</a>
+            </div>
+          </li>
+          <li class="dropdown">
+            <a href="#">Day 3: Applications</a>
+            <div class="dropdown-content">
+              <a href="../day3/rag.html">RAG Systems</a>
+              <a href="../day3/chatbots.html">Chatbots</a>
+              <a href="../day3/streamlit.html">Streamlit UI</a>
+            </div>
+          </li>
+          <li><a href="index.html" class="active">Notebooks</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" style="background: linear-gradient(to right, #2c3e50, #9b59b6);">
+      <div class="container">
+        <h2>Python Notebooks</h2>
+        <p>Hands-on examples for implementing GenAI applications</p>
+      </div>
+    </section>
+
+    <div class="container page-content">
+      <div class="card">
+        <h2>Notebook Examples</h2>
+        <p>These Jupyter notebooks provide practical implementations of the concepts covered in the training sessions. Each notebook includes detailed explanations, code examples, and exercises to reinforce your understanding.</p>
+        
+        <p>To get started, download the notebooks and run them in your local Jupyter environment or use a cloud-based notebook service.</p>
+        
+        <div class="notebook-requirements">
+          <h3>Requirements</h3>
+          <ul>
+            <li>Python 3.8+</li>
+            <li>Jupyter Notebook or JupyterLab</li>
+            <li>Required packages are listed in each notebook's introduction</li>
+          </ul>
+          
+          <p>You can install the common dependencies using:</p>
+          <pre><code>pip install -r requirements.txt</code></pre>
+          
+          <a href="../requirements.txt" download class="btn">Download requirements.txt</a>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h3 class="card-title">Basic LLM Interaction</h3>
+          <p>Learn how to work with LLMs using Python, including model loading, prompting techniques, and parameter tuning.</p>
+          <ul>
+            <li>Model configuration</li>
+            <li>Prompt formatting patterns</li>
+            <li>Parameter tuning (temperature, top-p, top-k)</li>
+            <li>Response parsing techniques</li>
+          </ul>
+          <a href="basic-llm-interaction.ipynb" download class="btn">Download Notebook</a>
+        </div>
+        
+        <div class="card">
+          <h3 class="card-title">RAG System Implementation</h3>
+          <p>Build an end-to-end Retrieval Augmented Generation system for question answering over custom documents.</p>
+          <ul>
+            <li>Document preprocessing</li>
+            <li>Vector database setup (FAISS/Chroma)</li>
+            <li>Embedding generation</li>
+            <li>Query pipeline creation</li>
+            <li>Response generation and evaluation</li>
+          </ul>
+          <a href="rag-system-implementation.ipynb" download class="btn">Download Notebook</a>
+        </div>
+        
+        <div class="card">
+          <h3 class="card-title">LangGraph Agent Implementation</h3>
+          <p>Create dynamic, state-aware agents using LangGraph's graph-based workflow system.</p>
+          <ul>
+            <li>Graph-based workflow setup</li>
+            <li>Agent state management</li>
+            <li>Tool integration</li>
+            <li>Error handling and fallbacks</li>
+            <li>Workflow visualization</li>
+          </ul>
+          <a href="langgraph-agent-implementation.ipynb" download class="btn">Download Notebook</a>
+        </div>
+        
+        <div class="card">
+          <h3 class="card-title">AWS Bedrock & Claude Integration</h3>
+          <p>Integrate Anthropic's Claude and other models through AWS Bedrock for production applications.</p>
+          <ul>
+            <li>AWS Bedrock setup</li>
+            <li>Claude model integration</li>
+            <li>Prompt optimization</li>
+            <li>Response streaming implementation</li>
+            <li>Cost and performance monitoring</li>
+          </ul>
+          <a href="bedrock-claude-integration.ipynb" download class="btn">Download Notebook</a>
+        </div>
+        
+        <div class="card">
+          <h3 class="card-title">Chatbot with Memory</h3>
+          <p>Develop a conversational AI system with sophisticated memory management for contextual interactions.</p>
+          <ul>
+            <li>Conversation history management</li>
+            <li>Context window optimization</li>
+            <li>Short vs. long-term memory</li>
+            <li>Conversation flow control</li>
+            <li>Personality consistency techniques</li>
+          </ul>
+          <a href="chatbot-with-memory.ipynb" download class="btn">Download Notebook</a>
+        </div>
+        
+        <div class="card">
+          <h3 class="card-title">Streamlit UI Implementation</h3>
+          <p>Create user-friendly interfaces for your GenAI applications using Streamlit's Python-based framework.</p>
+          <ul>
+            <li>Basic Streamlit app structure</li>
+            <li>Interactive input components</li>
+            <li>Dynamic content rendering</li>
+            <li>State management</li>
+            <li>Deployment preparation</li>
+          </ul>
+          <a href="streamlit-ui-implementation.ipynb" download class="btn">Download Notebook</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="../day1/genai-evolution.html">GenAI Evolution</a></li>
+            <li><a href="../day2/tools-mcp.html">Tools & MCP</a></li>
+            <li><a href="../day3/rag.html">RAG Systems</a></li>
+            <li><a href="index.html" class="active">Python Notebooks</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Resources</h3>
+          <ul>
+            <li><a href="../resources/glossary.html">GenAI Glossary</a></li>
+            <li><a href="../resources/reading.html">Further Reading</a></li>
+            <li><a href="../resources/slides/">Presentation Slides</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="copyright">
+        <p>&copy; 2025 GenAI Training. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>
