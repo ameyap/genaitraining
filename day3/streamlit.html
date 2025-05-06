@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Streamlit Integration - Day 3</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+</head>
+<body>
+  <header>
+    <div class="container header-content">
+      <div class="logo">
+        <h1>Gen<span>AI</span> Training</h1>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li class="dropdown">
+            <a href="#">Day 1: Foundations</a>
+            <div class="dropdown-content">
+              <a href="../day1/genai-evolution.html">GenAI Evolution</a>
+              <a href="../day1/llm-basics.html">LLM Basics</a>
+            </div>
+          </li>
+          <li class="dropdown">
+            <a href="#">Day 2: Frameworks & Tools</a>
+            <div class="dropdown-content">
+              <a href="../day2/frameworks.html">LLM Frameworks</a>
+              <a href="../day2/tools-mcp.html">Tools & MCP</a>
+              <a href="../day2/agents-vs-tools.html">Agents vs Tools</a>
+            </div>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="active">Day 3: Applications</a>
+            <div class="dropdown-content">
+              <a href="rag.html">RAG Systems</a>
+              <a href="chatbots.html">Chatbots</a>
+              <a href="streamlit.html" class="active">Streamlit UI</a>
+            </div>
+          </li>
+          <li><a href="../notebooks/">Notebooks</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" style="background: linear-gradient(to right, #2c3e50, #2980b9);">
+      <div class="container">
+        <h2>Building GenAI UIs with Streamlit</h2>
+        <p>Rapidly create interactive interfaces for your AI applications</p>
+      </div>
+    </section>
+
+    <div class="container page-content">
+      <div class="card">
+        <h2>Learning Objectives</h2>
+        <ul>
+          <li>Understand Streamlit's architecture and core concepts</li>
+          <li>Build interactive GenAI interfaces with minimal code</li>
+          <li>Master component integration for chatbots and RAG systems</li>
+          <li>Implement effective state management for AI applications</li>
+          <li>Design and deploy production-ready Streamlit applications</li>
+        </ul>
+      </div>
+
+      <h2>Session Overview</h2>
+      <p>This module covers Streamlit, a Python library that makes it easy to create custom web interfaces for GenAI applications. We'll explore how to build intuitive UIs for chatbots, RAG systems, and other AI applications with minimal frontend development expertise.</p>
+
+      <div class="card">
+        <h3>Intermediate to Advanced: Building GenAI UIs with Streamlit</h3>
+        <h4>Streamlit Architecture for AI Applications</h4>
+        <p>Streamlit offers several key advantages for AI application development:</p>
+        <ul>
+          <li><strong>Python-first</strong>: Build UIs in pure Python</li>
+          <li><strong>React-like reactivity</strong>: Automatic UI updates when data changes</li>
+          <li><strong>Data-flow model</strong>: Top-to-bottom execution on each interaction</li>
+          <li><strong>Caching system</strong>: Optimize performance of expensive operations</li>
+          <li><strong>AI-friendly components</strong>: Built for data science and ML workflows</li>
+        </ul>
+        
+        <p>The typical Streamlit application flow:</p>
+        <ol>
+          <li>Script runs from top to bottom when any input changes</li>
+          <li>State is preserved between runs using session state</li>
+          <li>UI components render based on the current execution</li>
+          <li>Cached functions avoid redundant computations</li>
+        </ol>
+        
+        <div class="code-example">
+          <h5>Basic Streamlit Application Structure:</h5>
+          <pre><code class="language-python"># app.py
+import streamlit as st
+
+# Page configuration
+st.set_page_config(
+    page_title="GenAI Demo",
+    page_icon="🧠",
+    layout="wide"
+)
+
+# Title and introduction
+st.title("GenAI Application Demo")
+st.markdown("This application demonstrates integration with language models.")
+
+# Sidebar for controls
+with st.sidebar:
+    st.header("Settings")
+    model = st.selectbox("Select Model", ["Claude 3 Sonnet", "GPT-4", "Llama 3"])
+    temperature = st.slider("Temperature", 0.0, 1.0, 0.7)
+    max_tokens = st.slider("Max Tokens", 100, 2000, 500)
+
+# Main interaction area
+user_input = st.text_area("Ask me anything:", height=100)
+submit_button = st.button("Submit")
+
+# Process input when user clicks submit
+if submit_button and user_input:
+    with st.spinner("Thinking..."):
+        # In a real app, this would call your AI model
+        response = f"Response using {model} with temp={temperature} and max_tokens={max_tokens}"
+        
+    # Display response
+    st.subheader("Response:")
+    st.write(response)
+    
+# Run with: streamlit run app.py</code></pre>
+        </div>
+        
+        <h4>Component Integration</h4>
+        <p>Streamlit provides specialized components for GenAI applications:</p>
+        <ul>
+          <li><strong>Chat interfaces</strong>: st.chat_message and st.chat_input</li>
+          <li><strong>File uploaders</strong>: st.file_uploader for document processing</li>
+          <li><strong>Progress indicators</strong>: st.progress and st.spinner</li>
+          <li><strong>Interactive widgets</strong>: Buttons, sliders, selectboxes</li>
+          <li><strong>Data visualization</strong>: Charts, maps, and custom plots</li>
+          <li><strong>Media display</strong>: Images, audio, video embedding</li>
+        </ul>
+        
+        <p>For chatbot applications, the chat components are particularly useful:</p>
+        
+        <div class="code-example">
+          <h5>Streamlit Chat Interface:</h5>
+          <pre><code class="language-python">import streamlit as st
+
+# Initialize chat history in session state if it doesn't exist
+if "messages" not in st.session_state:
+    st.session_state.messages = []
+
+st.title("💬 Chatbot Interface")
+
+# Display chat messages
+for message in st.session_state.messages:
+    with st.chat_message(message["role"]):
+        st.write(message["content"])
+
+# Chat input
+if prompt := st.chat_input("What's on your mind?"):
+    # Add user message to chat history
+    st.session_state.messages.append({"role": "user", "content": prompt})
+    
+    # Display user message in chat container
+    with st.chat_message("user"):
+        st.write(prompt)
+    
+    # Generate and display assistant response
+    with st.chat_message("assistant"):
+        with st.spinner("Thinking..."):
+            # In a real app, call your AI model here
+            response = f"This is a response to: {prompt}"
+            st.write(response)
+    
+    # Add assistant response to chat history
+    st.session_state.messages.append({"role": "assistant", "content": response})</code></pre>
+        </div>
+        
+        <p>For RAG applications, file uploading and processing is important:</p>
+        
+        <div class="code-example">
+          <h5>Document Processing Component:</h5>
+          <pre><code class="language-python">import streamlit as st
+import tempfile
+from langchain.document_loaders import PyPDFLoader
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+
+st.title("📚 RAG Document Processor")
+
+# Initialize session state
+if "documents" not in st.session_state:
+    st.session_state.documents = []
+    
+# File uploader
+uploaded_file = st.file_uploader("Upload a PDF document", type="pdf")
+
+if uploaded_file is not None:
+    # Save uploaded file temporarily
+    with tempfile.NamedTemporaryFile(delete=False, suffix='.pdf') as tmp_file:
+        tmp_file.write(uploaded_file.getvalue())
+        tmp_path = tmp_file.name
+    
+    # Process the PDF
+    with st.spinner("Processing document..."):
+        # Load PDF
+        loader = PyPDFLoader(tmp_path)
+        documents = loader.load()
+        
+        # Split into chunks
+        text_splitter = RecursiveCharacterTextSplitter(
+            chunk_size=1000,
+            chunk_overlap=200
+        )
+        chunks = text_splitter.split_documents(documents)
+        
+        # Store in session state
+        st.session_state.documents = chunks
+        
+        # Success message
+        st.success(f"✅ Processed {len(documents)} pages into {len(chunks)} chunks")
+        
+# Display document stats
+if st.session_state.documents:
+    st.subheader("Document Information")
+    st.write(f"Number of chunks: {len(st.session_state.documents)}")
+    
+    # Sample of chunks
+    if st.checkbox("Show sample chunks"):
+        for i, chunk in enumerate(st.session_state.documents[:3]):
+            st.text_area(f"Chunk {i+1}", chunk.page_content, height=150)</code></pre>
+        </div>
+        
+        <h4>State Management</h4>
+        <p>Effective state management is crucial for AI applications:</p>
+        <ul>
+          <li><strong>Session state</strong>: Persist data between interactions</li>
+          <li><strong>Caching</strong>: Optimize expensive operations like model loading</li>
+          <li><strong>Callbacks</strong>: Update UI during long-running processes</li>
+          <li><strong>Form components</strong>: Group inputs to reduce recomputation</li>
+        </ul>
+        
+        <p>Key state management techniques:</p>
+        <ul>
+          <li>Using st.session_state for conversation history</li>
+          <li>Applying @st.cache_data for embedding generations</li>
+          <li>Using @st.cache_resource for model loading</li>
+          <li>Implementing callbacks for streaming responses</li>
+        </ul>
+        
+        <div class="code-example">
+          <h5>Caching and State Management Example:</h5>
+          <pre><code class="language-python">import streamlit as st
+import time
+from langchain.embeddings import HuggingFaceEmbeddings
+from langchain.llms import HuggingFaceHub
+
+# Cache the embedding model loading
+@st.cache_resource
+def load_embedding_model():
+    st.info("Loading embedding model... (this happens only once)")
+    return HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+
+# Cache the LLM loading
+@st.cache_resource
+def load_llm():
+    st.info("Loading language model... (this happens only once)")
+    return HuggingFaceHub(repo_id="google/flan-t5-large", model_kwargs={"temperature":0.5})
+
+# Cache embedding calculation results
+@st.cache_data
+def get_embedding(text):
+    embeddings = load_embedding_model()
+    return embeddings.embed_query(text)
+
+# Initialize session state
+if "conversation_history" not in st.session_state:
+    st.session_state.conversation_history = []
+
+st.title("State Management Demo")
+
+# Load models (will use cache after first run)
+embedding_model = load_embedding_model()
+llm = load_llm()
+
+# User input
+user_input = st.text_input("Enter text to embed:")
+if user_input:
+    # Show progress during embedding
+    with st.spinner("Calculating embeddings..."):
+        # This will use cached results if input is repeated
+        embedding = get_embedding(user_input)
+        
+        # Add to history in session state
+        st.session_state.conversation_history.append({
+            "text": user_input,
+            "embedding_dim": len(embedding)
+        })
+    
+    st.success(f"Embedding dimension: {len(embedding)}")
+
+# Display history from session state
+if st.session_state.conversation_history:
+    st.subheader("Conversation History")
+    for i, item in enumerate(st.session_state.conversation_history):
+        st.write(f"{i+1}. '{item['text']}' (dim: {item['embedding_dim']})")
+    
+    # Clear history button
+    if st.button("Clear History"):
+        st.session_state.conversation_history = []
+        st.experimental_rerun()</code></pre>
+        </div>
+        
+        <h4>Performance Optimization</h4>
+        <p>Techniques to optimize Streamlit app performance:</p>
+        <ul>
+          <li><strong>Strategic caching</strong>: Identify and cache expensive operations</li>
+          <li><strong>Lazy loading</strong>: Load components only when needed</li>
+          <li><strong>Async operations</strong>: Run time-consuming tasks in background</li>
+          <li><strong>Data filtering</strong>: Process only necessary data</li>
+          <li><strong>Component organization</strong>: Use tabs and expanders for complex UIs</li>
+        </ul>
+        
+        <p>Common performance bottlenecks:</p>
+        <ul>
+          <li>Model loading and inference</li>
+          <li>Large dataset processing</li>
+          <li>Repeated embedding generations</li>
+          <li>Unnecessary UI recomputation</li>
+        </ul>
+        
+        <h4>Deployment Options</h4>
+        <p>Options for deploying Streamlit applications:</p>
+        <ul>
+          <li><strong>Streamlit Cloud</strong>: Easiest option for public sharing</li>
+          <li><strong>Docker containers</strong>: Portable deployment with dependencies</li>
+          <li><strong>AWS deployment</strong>: EC2, ECS, or App Runner</li>
+          <li><strong>Kubernetes</strong>: For more complex scaling requirements</li>
+          <li><strong>Reverse proxy setup</strong>: Custom domains and SSL</li>
+        </ul>
+        
+        <p>Deployment considerations for GenAI applications:</p>
+        <ul>
+          <li>Managing API keys securely</li>
+          <li>Handling model loading efficiently</li>
+          <li>Scaling to handle concurrent users</li>
+          <li>Monitoring usage and performance</li>
+          <li>Cost management for API-based models</li>
+        </ul>
+        
+        <div class="code-example">
+          <h5>Docker Deployment Example:</h5>
+          <pre><code class="language-dockerfile"># Dockerfile
+FROM python:3.9-slim
+
+WORKDIR /app
+
+# Install dependencies
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+
+# Copy application code
+COPY . .
+
+# Expose port
+EXPOSE 8501
+
+# Set environment variables
+ENV PYTHONUNBUFFERED=1
+
+# Command to run the application
+CMD ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0"]</code></pre>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>End-to-end Application Workshop</h3>
+        <p>In this workshop, we'll build a complete end-to-end application that integrates all the concepts from the training:</p>
+        <ol>
+          <li><strong>RAG-powered chatbot</strong> with document upload capability</li>
+          <li><strong>AWS Bedrock integration</strong> using Claude models</li>
+          <li><strong>Streaming responses</strong> for better user experience</li>
+          <li><strong>Memory management</strong> for conversation context</li>
+          <li><strong>Evaluation metrics</strong> to measure system performance</li>
+        </ol>
+        
+        <p>The application workflow:</p>
+        <ol>
+          <li>User uploads documents for knowledge base</li>
+          <li>System processes and embeds document chunks</li>
+          <li>User asks questions through chat interface</li>
+          <li>Backend retrieves relevant context from documents</li>
+          <li>LLM generates responses using retrieved context</li>
+          <li>Response streams to the UI in real-time</li>
+          <li>Conversation history maintains context</li>
+        </ol>
+        
+        <a href="../notebooks/streamlit-ui-implementation.html" class="btn">Open Workshop Notebook</a>
+      </div>
+
+      <div class="module-navigation">
+        <div class="nav-links">
+          <a href="chatbots.html" class="prev-link">u2190 Previous: Chatbots</a>
+          <a href="../index.html" class="next-link">Back to Overview u2192</a>
+        </div>
+        
+        <button class="mark-complete" data-section="streamlit">Mark as Complete</button>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="rag.html">RAG Systems</a></li>
+            <li><a href="chatbots.html">Chatbots</a></li>
+            <li><a href="streamlit.html" class="active">Streamlit UI</a></li>
+            <li><a href="../notebooks/">Python Notebooks</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Resources</h3>
+          <ul>
+            <li><a href="../notebooks/streamlit-ui-implementation.html">Streamlit Implementation</a></li>
+            <li><a href="../resources/glossary.html">GenAI Glossary</a></li>
+            <li><a href="../resources/reading.html">Further Reading</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="copyright">
+        <p>&copy; 2025 GenAI Training. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+  <script src="../js/main.js"></script>
+</body>
+</html>

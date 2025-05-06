@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agents vs Tools vs GenAI Applications - Day 2</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+</head>
+<body>
+  <header>
+    <div class="container header-content">
+      <div class="logo">
+        <h1>Gen<span>AI</span> Training</h1>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li class="dropdown">
+            <a href="#">Day 1: Foundations</a>
+            <div class="dropdown-content">
+              <a href="../day1/genai-evolution.html">GenAI Evolution</a>
+              <a href="../day1/llm-basics.html">LLM Basics</a>
+            </div>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="active">Day 2: Frameworks & Tools</a>
+            <div class="dropdown-content">
+              <a href="frameworks.html">LLM Frameworks</a>
+              <a href="tools-mcp.html">Tools & MCP</a>
+              <a href="agents-vs-tools.html" class="active">Agents vs Tools</a>
+            </div>
+          </li>
+          <li class="dropdown">
+            <a href="#">Day 3: Applications</a>
+            <div class="dropdown-content">
+              <a href="../day3/rag.html">RAG Systems</a>
+              <a href="../day3/chatbots.html">Chatbots</a>
+              <a href="../day3/streamlit.html">Streamlit UI</a>
+            </div>
+          </li>
+          <li><a href="../notebooks/">Notebooks</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" style="background: linear-gradient(to right, #2c3e50, #e74c3c);">
+      <div class="container">
+        <h2>Agents vs Tools vs GenAI Applications</h2>
+        <p>Understanding the architectural differences and use cases for various AI system designs</p>
+      </div>
+    </section>
+
+    <div class="container page-content">
+      <div class="card">
+        <h2>Learning Objectives</h2>
+        <ul>
+          <li>Define agents, tools, and GenAI applications with clear distinctions</li>
+          <li>Identify appropriate architectures for different use cases</li>
+          <li>Understand planning and reasoning mechanisms in AI systems</li>
+          <li>Design multi-agent systems for complex tasks</li>
+          <li>Evaluate the performance of different AI system architectures</li>
+        </ul>
+      </div>
+
+      <h2>Session Overview</h2>
+      <p>This module clarifies the conceptual differences between agents, tools, and GenAI applications. We'll explore when to use each approach and how to combine them effectively for optimal solutions.</p>
+
+      <div class="card">
+        <h3>Intermediate Section: Conceptual Differences</h3>
+        <h4>What Defines an Agent</h4>
+        <p>An agent is an AI system that can:</p>
+        <ul>
+          <li>Exhibit autonomy in decision making</li>
+          <li>Reason about its actions and environment</li>
+          <li>Plan sequences of steps to achieve goals</li>
+          <li>Choose and use tools appropriately</li>
+          <li>Learn from feedback and experience</li>
+        </ul>
+        
+        <p>Key characteristics of agents include:</p>
+        <ul>
+          <li><strong>Agency</strong>: Making independent decisions about what to do next</li>
+          <li><strong>Reasoning</strong>: Explaining and reflecting on decisions</li>
+          <li><strong>Persistence</strong>: Maintaining state across multiple iterations</li>
+          <li><strong>Goal-orientation</strong>: Working toward specified objectives</li>
+        </ul>
+        
+        <div class="example-box">
+          <h5>Agent Example: Research Assistant</h5>
+          <p>A research assistant agent might:</p>
+          <ol>
+            <li>Analyze a research question</li>
+            <li>Decide to search for relevant information</li>
+            <li>Evaluate search results and extract key points</li>
+            <li>Identify knowledge gaps and search again with refined queries</li>
+            <li>Synthesize findings into a comprehensive answer</li>
+          </ol>
+          <p>The agent maintains state (what it has learned) and makes decisions about next steps throughout the process.</p>
+        </div>
+        
+        <h4>Tools as Capability Extensions</h4>
+        <p>A tool is a specialized function that:</p>
+        <ul>
+          <li>Performs a specific, well-defined task</li>
+          <li>Takes structured inputs and returns outputs</li>
+          <li>Extends the capabilities of models or agents</li>
+          <li>Has no internal agency or decision-making</li>
+        </ul>
+        
+        <p>Common types of tools include:</p>
+        <ul>
+          <li><strong>Information retrieval</strong>: Search engines, knowledge bases, vector stores</li>
+          <li><strong>Computation</strong>: Calculators, code executors, data analyzers</li>
+          <li><strong>External APIs</strong>: Weather services, translation services, stock data</li>
+          <li><strong>System operations</strong>: File operations, database queries, messaging</li>
+        </ul>
+        
+        <div class="example-box">
+          <h5>Tool Example: Weather API</h5>
+          <pre><code class="language-python">def get_weather(location: str, unit: str = "celsius") -> dict:
+    """Get current weather for a location"""
+    # API call implementation
+    response = weather_api.query({
+        "location": location,
+        "unit": unit
+    })
+    
+    return {
+        "temperature": response["current"]["temp"],
+        "conditions": response["current"]["conditions"],
+        "location": location
+    }</code></pre>
+          <p>This tool has a specific function, takes structured inputs, and returns a predictable output format, but has no decision-making capability of its own.</p>
+        </div>
+        
+        <h4>GenAI Applications Architecture</h4>
+        <p>GenAI applications integrate models, tools, and possibly agents into cohesive solutions:</p>
+        <ul>
+          <li>Orchestrate interactions between components</li>
+          <li>Manage user interfaces and experiences</li>
+          <li>Handle authentication and security</li>
+          <li>Provide deployment and scaling infrastructure</li>
+          <li>Connect to existing enterprise systems</li>
+        </ul>
+        
+        <p>Common architectural patterns include:</p>
+        <ul>
+          <li><strong>Direct integration</strong>: Simple model + UI (e.g., chatbot interfaces)</li>
+          <li><strong>RAG systems</strong>: Model + retrieval + knowledge base</li>
+          <li><strong>Tool-augmented applications</strong>: Model with specialized function calls</li>
+          <li><strong>Agent-based systems</strong>: Autonomous agents with planning and tool use</li>
+          <li><strong>Hybrid architectures</strong>: Combining multiple approaches</li>
+        </ul>
+        
+        <div class="comparison-table">
+          <h4>Comparative Overview</h4>
+          <table>
+            <thead>
+              <tr>
+                <th>Aspect</th>
+                <th>Agent</th>
+                <th>Tool</th>
+                <th>GenAI Application</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Primary Purpose</td>
+                <td>Autonomous problem-solving</td>
+                <td>Specific function execution</td>
+                <td>End-user solution delivery</td>
+              </tr>
+              <tr>
+                <td>Decision Making</td>
+                <td>High (self-directed)</td>
+                <td>None (invoked by others)</td>
+                <td>Varies (system-defined)</td>
+              </tr>
+              <tr>
+                <td>State Management</td>
+                <td>Persistent memory</td>
+                <td>Stateless</td>
+                <td>Application-managed state</td>
+              </tr>
+              <tr>
+                <td>User Interaction</td>
+                <td>Often conversational</td>
+                <td>None (backend)</td>
+                <td>Designed UX/UI</td>
+              </tr>
+              <tr>
+                <td>Integration</td>
+                <td>Can use tools</td>
+                <td>Used by agents/applications</td>
+                <td>Orchestrates all components</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Advanced Section: Agent Architecture Patterns</h3>
+        <h4>ReAct Patterns</h4>
+        <p>ReAct (Reasoning + Acting) is a pattern for building agents that:</p>
+        <ul>
+          <li>Alternates between reasoning about the current state</li>
+          <li>Taking actions based on that reasoning</li>
+          <li>Observing the results of actions</li>
+          <li>Incorporating observations into future reasoning</li>
+        </ul>
+        
+        <p>A typical ReAct loop follows this structure:</p>
+        <ol>
+          <li><strong>Thought</strong>: Agent reasoning about the situation and possible actions</li>
+          <li><strong>Action</strong>: Selected tool or operation to execute</li>
+          <li><strong>Observation</strong>: Results returned from the action</li>
+          <li><strong>Thought</strong>: Further reasoning incorporating new observations</li>
+          <li>... (cycle continues until task completion)</li>
+        </ol>
+        
+        <div class="code-example">
+          <h5>ReAct Implementation Example:</h5>
+          <pre><code class="language-python">from langchain.agents import create_react_agent
+from langchain.chat_models import ChatOpenAI
+from langchain.tools import Tool
+
+# Define tools
+tools = [
+    Tool(
+        name="search",
+        func=search_function,
+        description="Search for information about a topic"
+    ),
+    Tool(
+        name="calculator",
+        func=calculator_function,
+        description="Perform calculations"
+    )
+]
+
+# Create the agent
+llm = ChatOpenAI(temperature=0)
+agent = create_react_agent(llm, tools, prompt)
+
+# Execute the agent
+result = agent.invoke({
+    "input": "What's the square root of the population of France?"
+})
+
+# The agent will:
+# 1. Think: "I need to find France's population, then calculate square root"
+# 2. Action: Use search tool to find population
+# 3. Observe: "France population is approximately 67.75 million (2023)"
+# 4. Think: "Now I need to calculate the square root"
+# 5. Action: Use calculator to compute sqrt(67750000)
+# 6. Observe: "8230.43..."
+# 7. Think: "I have the answer now"
+# 8. Respond with final answer</code></pre>
+        </div>
+        
+        <h4>Planning Algorithms</h4>
+        <p>More sophisticated agents use explicit planning approaches:</p>
+        <ul>
+          <li><strong>Task decomposition</strong>: Breaking goals into manageable subtasks</li>
+          <li><strong>Tree of Thoughts</strong>: Exploring multiple reasoning pathways</li>
+          <li><strong>Plan-and-execute</strong>: Creating a full plan before execution</li>
+          <li><strong>Dynamic replanning</strong>: Adjusting plans as new information arrives</li>
+          <li><strong>Hierarchical planning</strong>: Plans with different levels of abstraction</li>
+        </ul>
+        
+        <p>Example planning process:</p>
+        <ol>
+          <li>Goal analysis: Understanding the desired outcome</li>
+          <li>Task decomposition: Breaking into steps</li>
+          <li>Dependency mapping: Identifying prerequisites</li>
+          <li>Resource allocation: Determining tools needed</li>
+          <li>Execution scheduling: Determining order of operations</li>
+          <li>Monitoring and adaptation: Adjusting as needed</li>
+        </ol>
+        
+        <div class="code-example">
+          <h5>Task Decomposition Example:</h5>
+          <pre><code class="language-python">def decompose_task(llm, task_description):
+    """Break down a complex task into subtasks"""
+    prompt = """
+    Task: {task}
+    
+    Break down this task into a list of subtasks that would be needed to complete it.
+    For each subtask, list any dependencies (other subtasks that must be completed first).
+    Format your response as a JSON object with subtasks as keys and dependencies as values.
+    """
+    
+    response = llm.predict(prompt.format(task=task_description))
+    subtasks = json.loads(response)
+    return subtasks
+
+# Example task
+task = "Create a data visualization dashboard for our company's sales data"
+subtasks = decompose_task(llm, task)
+
+# Result might be:
+# {
+#   "1. Gather sales data requirements": [],
+#   "2. Collect and clean sales data": ["1. Gather sales data requirements"],
+#   "3. Design dashboard layout": ["1. Gather sales data requirements"],
+#   "4. Create data visualizations": ["2. Collect and clean sales data"],
+#   "5. Implement interactive features": ["3. Design dashboard layout", "4. Create data visualizations"],
+#   "6. Test dashboard functionality": ["5. Implement interactive features"],
+#   "7. Deploy dashboard": ["6. Test dashboard functionality"]
+# }</code></pre>
+        </div>
+        
+        <h4>Multi-agent Systems</h4>
+        <p>Complex tasks often benefit from multiple specialized agents working together:</p>
+        <ul>
+          <li><strong>Role specialization</strong>: Agents with specific expertise areas</li>
+          <li><strong>Collaborative problem-solving</strong>: Agents sharing information</li>
+          <li><strong>Debate and consensus</strong>: Multiple perspectives improving decisions</li>
+          <li><strong>Hierarchical organization</strong>: Manager agents coordinating others</li>
+          <li><strong>Competitive evaluation</strong>: Agents critiquing each others' work</li>
+        </ul>
+        
+        <p>Common roles in multi-agent systems:</p>
+        <ul>
+          <li><strong>Supervisor</strong>: Coordinates overall process and delegates tasks</li>
+          <li><strong>Specialist</strong>: Deep expertise in specific domains</li>
+          <li><strong>Critic</strong>: Evaluates and provides feedback on other agents' outputs</li>
+          <li><strong>Researcher</strong>: Gathers information needed by other agents</li>
+          <li><strong>User Proxy</strong>: Represents user interests and preferences</li>
+        </ul>
+        
+        <h4>Evaluation Frameworks for Agents</h4>
+        <p>Evaluating agent systems requires measuring multiple dimensions:</p>
+        <ul>
+          <li><strong>Task completion</strong>: Did the agent achieve the goal?</li>
+          <li><strong>Efficiency</strong>: How many steps/resources were required?</li>
+          <li><strong>Reasoning quality</strong>: Was the agent's reasoning sound?</li>
+          <li><strong>Tool selection</strong>: Did the agent choose appropriate tools?</li>
+          <li><strong>Adaptation</strong>: How well did the agent handle unexpected situations?</li>
+          <li><strong>Safety</strong>: Did the agent avoid harmful actions?</li>
+        </ul>
+        
+        <p>Evaluation approaches include:</p>
+        <ul>
+          <li>Benchmark tasks with known solutions</li>
+          <li>Human evaluation of agent behavior</li>
+          <li>Agent vs. agent competitions</li>
+          <li>Self-reflection and critique</li>
+          <li>Real-world deployment metrics</li>
+        </ul>
+        
+        <h4>Case Studies of Successful Agent Implementations</h4>
+        <p>Let's examine some successful agent architectures and their key innovations:</p>
+        
+        <div class="case-study">
+          <h5>Case Study 1: AutoGPT</h5>
+          <ul>
+            <li><strong>Architecture</strong>: Autonomous goal-directed agent with memory and planning</li>
+            <li><strong>Key features</strong>: Self-prompted planning, autonomous tool selection, web browsing</li>
+            <li><strong>Strengths</strong>: High autonomy, persistent execution toward goals</li>
+            <li><strong>Limitations</strong>: Variable reliability, hallucination risks</li>
+          </ul>
+        </div>
+        
+        <div class="case-study">
+          <h5>Case Study 2: LangChain Agents</h5>
+          <ul>
+            <li><strong>Architecture</strong>: Framework-based agents with tool integration</li>
+            <li><strong>Key features</strong>: Multiple agent types (ReAct, Plan-and-Execute), flexible tool integration</li>
+            <li><strong>Strengths</strong>: Modularity, growing ecosystem, active development</li>
+            <li><strong>Limitations</strong>: Can require significant prompt engineering</li>
+          </ul>
+        </div>
+        
+        <div class="case-study">
+          <h5>Case Study 3: BabyAGI</h5>
+          <ul>
+            <li><strong>Architecture</strong>: Task creation and prioritization loop</li>
+            <li><strong>Key features</strong>: Dynamic task list generation, task-based execution</li>
+            <li><strong>Strengths</strong>: Good at breaking down and managing complex projects</li>
+            <li><strong>Limitations</strong>: Limited adaptation to changing environments</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Hands-on Exercise</h3>
+        <p>In this exercise, we'll build a simple agent that can interact with multiple tools to solve research-based tasks. The agent will:</p>
+        <ul>
+          <li>Analyze user queries to determine information needs</li>
+          <li>Use search tools to gather relevant information</li>
+          <li>Use a calculator tool for numerical calculations</li>
+          <li>Summarize findings in a clear, structured format</li>
+          <li>Explain its reasoning process</li>
+        </ul>
+        
+        <a href="../notebooks/agent-implementation.html" class="btn">Open Tutorial Notebook</a>
+      </div>
+
+      <div class="module-navigation">
+        <div class="nav-links">
+          <a href="tools-mcp.html" class="prev-link">← Previous: Tools & MCP</a>
+          <a href="../day3/rag.html" class="next-link">Next: RAG Systems →</a>
+        </div>
+        
+        <button class="mark-complete" data-section="agents-vs-tools">Mark as Complete</button>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="frameworks.html">LLM Frameworks</a></li>
+            <li><a href="tools-mcp.html">Tools & MCP</a></li>
+            <li><a href="agents-vs-tools.html" class="active">Agents vs Tools</a></li>
+            <li><a href="../day3/rag.html">RAG Systems</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Resources</h3>
+          <ul>
+            <li><a href="../notebooks/">Python Notebooks</a></li>
+            <li><a href="../resources/glossary.html">GenAI Glossary</a></li>
+            <li><a href="../resources/reading.html">Further Reading</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="copyright">
+        <p>&copy; 2025 GenAI Training. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+  <script src="../js/main.js"></script>
+</body>
+</html>

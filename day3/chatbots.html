@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chatbots Using Bedrock and Anthropic - Day 3</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+</head>
+<body>
+  <header>
+    <div class="container header-content">
+      <div class="logo">
+        <h1>Gen<span>AI</span> Training</h1>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li class="dropdown">
+            <a href="#">Day 1: Foundations</a>
+            <div class="dropdown-content">
+              <a href="../day1/genai-evolution.html">GenAI Evolution</a>
+              <a href="../day1/llm-basics.html">LLM Basics</a>
+            </div>
+          </li>
+          <li class="dropdown">
+            <a href="#">Day 2: Frameworks & Tools</a>
+            <div class="dropdown-content">
+              <a href="../day2/frameworks.html">LLM Frameworks</a>
+              <a href="../day2/tools-mcp.html">Tools & MCP</a>
+              <a href="../day2/agents-vs-tools.html">Agents vs Tools</a>
+            </div>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="active">Day 3: Applications</a>
+            <div class="dropdown-content">
+              <a href="rag.html">RAG Systems</a>
+              <a href="chatbots.html" class="active">Chatbots</a>
+              <a href="streamlit.html">Streamlit UI</a>
+            </div>
+          </li>
+          <li><a href="../notebooks/">Notebooks</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" style="background: linear-gradient(to right, #2c3e50, #9b59b6);">
+      <div class="container">
+        <h2>Chatbots Using Bedrock and Anthropic</h2>
+        <p>Building intelligent conversational interfaces with AWS Bedrock and Claude/Sonnet models</p>
+      </div>
+    </section>
+
+    <div class="container page-content">
+      <div class="card">
+        <h2>Learning Objectives</h2>
+        <ul>
+          <li>Understand chatbot architecture and key components</li>
+          <li>Learn AWS Bedrock's features and integration patterns</li>
+          <li>Compare Anthropic Claude/Sonnet models and their capabilities</li>
+          <li>Implement memory systems for contextual conversations</li>
+          <li>Add streaming responses and multi-modal capabilities</li>
+          <li>Apply deployment patterns for production chatbots</li>
+        </ul>
+      </div>
+
+      <h2>Session Overview</h2>
+      <p>This module explores building production-ready chatbots using AWS Bedrock and Anthropic's Claude/Sonnet models. We'll cover both basic concepts and advanced implementation details, including memory management, multi-modal interactions, and deployment considerations.</p>
+
+      <div class="card">
+        <h3>Intermediate Section: Chatbot Architecture</h3>
+        <h4>Core Components</h4>
+        <p>A complete chatbot system consists of several key components:</p>
+        <ul>
+          <li><strong>User Interface</strong>: How users interact with the chatbot</li>
+          <li><strong>Natural Language Understanding</strong>: Processing and interpreting user inputs</li>
+          <li><strong>Dialog Management</strong>: Controlling conversation flow and state</li>
+          <li><strong>Backend Services</strong>: Integration with data sources and business logic</li>
+          <li><strong>Language Model</strong>: Core intelligence for generating responses</li>
+          <li><strong>Memory System</strong>: Maintaining context over the conversation</li>
+        </ul>
+        
+        <p>Architecture patterns for chatbots include:</p>
+        <ul>
+          <li><strong>Simple stateless</strong>: Each interaction processed independently</li>
+          <li><strong>Contextual with conversation history</strong>: Maintains recent exchanges</li>
+          <li><strong>Multi-stage pipeline</strong>: Request preprocessing, classification, routing, generation</li>
+          <li><strong>Hybrid retrieval-generation</strong>: Combining RAG with conversation capabilities</li>
+        </ul>
+        
+        <div class="architecture-diagram">
+          <h5>Basic Chatbot Architecture</h5>
+          <img src="../resources/images/chatbot-architecture.png" alt="Chatbot Architecture Diagram" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="300" viewBox="0 0 600 300"><rect x="0" y="0" width="100%" height="100%" fill="%23f0f0f0"/><text x="50%" y="50%" font-family="Arial" font-size="24" text-anchor="middle">Chatbot Architecture Diagram</text><text x="50%" y="75%" font-family="Arial" font-size="14" text-anchor="middle">(Image placeholder)</text></svg>';">
+        </div>
+        
+        <h4>Dialog Management</h4>
+        <p>Effective dialog management is critical for natural conversations:</p>
+        <ul>
+          <li><strong>Turn taking</strong>: Managing the flow between user and chatbot</li>
+          <li><strong>Context tracking</strong>: Maintaining awareness of conversation topics</li>
+          <li><strong>State management</strong>: Tracking where the conversation stands</li>
+          <li><strong>Intent recognition</strong>: Understanding what the user wants to accomplish</li>
+          <li><strong>Entity extraction</strong>: Identifying key information in user messages</li>
+        </ul>
+        
+        <p>Dialog management approaches include:</p>
+        <ul>
+          <li><strong>Rule-based</strong>: Predefined paths and responses</li>
+          <li><strong>Frame-based</strong>: Slot filling for structured information gathering</li>
+          <li><strong>Statistical</strong>: Learning from conversation data</li>
+          <li><strong>End-to-end neural</strong>: Using LLMs for complete dialog management</li>
+        </ul>
+        
+        <h4>AWS Bedrock Service Overview</h4>
+        <p>AWS Bedrock is Amazon's fully managed service for foundation models:</p>
+        <ul>
+          <li>Access to multiple leading foundation models (Amazon, Anthropic, AI21, etc.)</li>
+          <li>Unified API for model inference</li>
+          <li>Fine-tuning capabilities</li>
+          <li>Model evaluation tools</li>
+          <li>Integration with AWS ecosystem</li>
+          <li>Enterprise security and compliance features</li>
+        </ul>
+        
+        <p>Key Bedrock features for chatbot development:</p>
+        <ul>
+          <li><strong>Streaming responses</strong>: Real-time token generation</li>
+          <li><strong>Knowledge bases</strong>: Built-in RAG functionality</li>
+          <li><strong>Agent capabilities</strong>: Tool use and API calling</li>
+          <li><strong>Guardrails</strong>: Content filtering and moderation</li>
+          <li><strong>Provisioned throughput</strong>: Dedicated capacity for production</li>
+        </ul>
+        
+        <div class="code-example">
+          <h5>Basic AWS Bedrock Invocation:</h5>
+          <pre><code class="language-python">import boto3
+import json
+
+# Initialize Bedrock client
+bedrock_runtime = boto3.client(
+    service_name='bedrock-runtime',
+    region_name='us-east-1'
+)
+
+# Prepare request for Claude
+payload = {
+    "anthropic_version": "bedrock-2023-05-31",
+    "max_tokens": 1000,
+    "messages": [
+        {"role": "user", "content": "Tell me about AWS Bedrock."}
+    ]
+}
+
+# Invoke model
+response = bedrock_runtime.invoke_model(
+    modelId='anthropic.claude-3-sonnet-20240229-v1:0',
+    body=json.dumps(payload)
+)
+
+# Parse and print response
+response_body = json.loads(response['body'].read().decode('utf-8'))
+print(response_body['content'][0]['text'])</code></pre>
+        </div>
+        
+        <h4>Anthropic Claude/Sonnet Capabilities</h4>
+        <p>Anthropic's Claude models offer several advantages for chatbot development:</p>
+        <ul>
+          <li><strong>Long context windows</strong>: Up to 200K tokens in Claude 3 models</li>
+          <li><strong>Constitutional AI alignment</strong>: Safety and helpfulness focus</li>
+          <li><strong>Multimodal capabilities</strong>: Processing text and images</li>
+          <li><strong>Tool use</strong>: Structured JSON function calling</li>
+          <li><strong>Low hallucination rates</strong>: Higher factual accuracy</li>
+        </ul>
+        
+        <p>Claude model variants available on AWS Bedrock:</p>
+        <ul>
+          <li><strong>Claude 3 Haiku</strong>: Fastest, most cost-effective option</li>
+          <li><strong>Claude 3 Sonnet</strong>: Balanced performance and capability</li>
+          <li><strong>Claude 3 Opus</strong>: Most capable, best for complex reasoning</li>
+          <li><strong>Claude 2</strong>: Previous generation model (still available)</li>
+        </ul>
+        
+        <p>Claude prompt best practices:</p>
+        <ul>
+          <li>Clear, specific instructions at the beginning</li>
+          <li>XML tags for structured content</li>
+          <li>Explicit formatting requirements</li>
+          <li>System prompts for consistent behavior</li>
+        </ul>
+        
+        <div class="code-example">
+          <h5>Anthropic Claude System Prompt:</h5>
+          <pre><code class="language-python">payload = {
+    "anthropic_version": "bedrock-2023-05-31",
+    "max_tokens": 1000,
+    "messages": [
+        {
+            "role": "system", 
+            "content": """You are a helpful customer support assistant for a software company. 
+            You should be friendly, concise, and focus on solving the customer's problem.
+            When you don't know something, admit it clearly rather than making up information.
+            If the user asks about pricing or specific product features, direct them to the 
+            appropriate documentation at docs.example.com."""
+        },
+        {"role": "user", "content": "I'm having trouble with the login page. It keeps saying my password is incorrect."}
+    ]
+}</code></pre>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Advanced Section: Advanced Chatbot Features</h3>
+        <h4>Memory and Context Management</h4>
+        <p>Sophisticated chatbots require effective memory systems:</p>
+        <ul>
+          <li><strong>Short-term memory</strong>: Recent conversation turns</li>
+          <li><strong>Long-term memory</strong>: Persistent user information and preferences</li>
+          <li><strong>Working memory</strong>: Active information for current task</li>
+          <li><strong>Episodic memory</strong>: Records of past interactions</li>
+        </ul>
+        
+        <p>Implementation approaches include:</p>
+        <ul>
+          <li><strong>Simple message history</strong>: Maintaining array of past messages</li>
+          <li><strong>Summarization</strong>: Condensing past context to save tokens</li>
+          <li><strong>Vector storage</strong>: Embedding and retrieving relevant past exchanges</li>
+          <li><strong>Structured state</strong>: Maintaining explicit conversation state objects</li>
+          <li><strong>Database persistence</strong>: Storing conversations across sessions</li>
+        </ul>
+        
+        <div class="code-example">
+          <h5>Implementing Summarized Memory:</h5>
+          <pre><code class="language-python">from langchain.memory import ConversationSummaryBufferMemory
+from langchain.chat_models import BedrockChat
+
+# Initialize model
+llm = BedrockChat(
+    model_id="anthropic.claude-3-sonnet-20240229-v1:0",
+    region_name="us-east-1"
+)
+
+# Create summarizing memory
+memory = ConversationSummaryBufferMemory(
+    llm=llm,
+    max_token_limit=1000,  # Maximum tokens to keep in buffer
+    return_messages=True
+)
+
+# Add messages to memory
+memory.chat_memory.add_user_message("Hi, I'm looking for help with your product.")
+memory.chat_memory.add_ai_message("Hello! I'd be happy to help. What specific aspect of our product do you need assistance with?")
+memory.chat_memory.add_user_message("I'm trying to integrate it with my company's SSO solution.")
+
+# When buffer gets too large, it's automatically summarized
+current_messages = memory.load_memory_variables({})["history"]
+print("Current memory state:")
+for msg in current_messages:
+    print(f"{msg.type}: {msg.content}")</code></pre>
+        </div>
+        
+        <h4>Streaming Responses</h4>
+        <p>Implementing streaming for a more responsive user experience:</p>
+        <ul>
+          <li>Reduces perceived latency</li>
+          <li>Provides immediate feedback</li>
+          <li>Enables partial response processing</li>
+          <li>Improves user engagement</li>
+        </ul>
+        
+        <div class="code-example">
+          <h5>AWS Bedrock Streaming Implementation:</h5>
+          <pre><code class="language-python">import boto3
+import json
+
+# Initialize client
+bedrock_runtime = boto3.client('bedrock-runtime')
+
+# Prepare request
+payload = {
+    "anthropic_version": "bedrock-2023-05-31",
+    "max_tokens": 1000,
+    "messages": [
+        {"role": "user", "content": "Explain quantum computing in simple terms."}
+    ]
+}
+
+# Request streaming response
+response = bedrock_runtime.invoke_model_with_response_stream(
+    modelId='anthropic.claude-3-sonnet-20240229-v1:0',
+    body=json.dumps(payload)
+)
+
+# Process the streaming response
+stream = response.get('body')
+
+if stream:
+    for event in stream:
+        chunk = event.get('chunk')
+        if chunk:
+            chunk_data = json.loads(chunk.get('bytes').decode('utf-8'))
+            if "content" in chunk_data and len(chunk_data["content"]) > 0:
+                text_chunk = chunk_data["content"][0].get('text', '')
+                # In a real app, you might send this to a websocket
+                print(text_chunk, end="", flush=True)</code></pre>
+        </div>
+        
+        <h4>Multi-modal Interactions</h4>
+        <p>Expanding chatbots to handle images and other media:</p>
+        <ul>
+          <li><strong>Image understanding</strong>: Processing visual content</li>
+          <li><strong>Document analysis</strong>: Extracting text and structure from documents</li>
+          <li><strong>Visual question answering</strong>: Responding to questions about images</li>
+          <li><strong>Data visualization</strong>: Creating charts and graphs</li>
+        </ul>
+        
+        <div class="code-example">
+          <h5>Claude Multimodal Input Example:</h5>
+          <pre><code class="language-python">import boto3
+import json
+import base64
+
+# Helper function to encode image
+def encode_image(image_path):
+    with open(image_path, "rb") as image_file:
+        return base64.b64encode(image_file.read()).decode('utf-8')
+
+# Encode the image
+image_base64 = encode_image("screenshot.png")
+
+# Prepare multimodal message
+payload = {
+    "anthropic_version": "bedrock-2023-05-31",
+    "max_tokens": 1000,
+    "messages": [
+        {
+            "role": "user",
+            "content": [
+                {
+                    "type": "image",
+                    "source": {
+                        "type": "base64",
+                        "media_type": "image/png",
+                        "data": image_base64
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "What's shown in this error message? How can I fix it?"
+                }
+            ]
+        }
+    ]
+}
+
+# Make the API call
+bedrock_runtime = boto3.client('bedrock-runtime')
+response = bedrock_runtime.invoke_model(
+    modelId='anthropic.claude-3-sonnet-20240229-v1:0',
+    body=json.dumps(payload)
+)
+
+# Parse response
+response_body = json.loads(response['body'].read())
+print(response_body['content'][0]['text'])</code></pre>
+        </div>
+        
+        <h4>Fine-tuning Strategies</h4>
+        <p>Specializing models for your specific chatbot use case:</p>
+        <ul>
+          <li><strong>Dataset preparation</strong>: Creating high-quality training examples</li>
+          <li><strong>Prompt tuning</strong>: Lightweight parameter adjustment</li>
+          <li><strong>Full fine-tuning</strong>: More extensive model adaptation</li>
+          <li><strong>RLHF</strong>: Reinforcement Learning from Human Feedback</li>
+        </ul>
+        
+        <p>AWS Bedrock supports fine-tuning through its custom model feature:</p>
+        <ul>
+          <li>Training data format requirements</li>
+          <li>Hyperparameter configuration</li>
+          <li>Evaluation metrics and validation</li>
+          <li>Model deployment and versioning</li>
+        </ul>
+        
+        <h4>Deployment Patterns</h4>
+        <p>Options for deploying production chatbots:</p>
+        <ul>
+          <li><strong>Serverless architecture</strong>
+            <ul>
+              <li>API Gateway + Lambda + Bedrock</li>
+              <li>Low maintenance, auto-scaling</li>
+            </ul>
+          </li>
+          <li><strong>Container-based deployment</strong>
+            <ul>
+              <li>ECS/EKS with Bedrock integration</li>
+              <li>More control and customization</li>
+            </ul>
+          </li>
+          <li><strong>AWS Amplify</strong>
+            <ul>
+              <li>Rapid frontend development</li>
+              <li>Built-in authentication</li>
+            </ul>
+          </li>
+          <li><strong>SageMaker endpoints</strong>
+            <ul>
+              <li>For custom or fine-tuned models</li>
+              <li>Advanced monitoring capabilities</li>
+            </ul>
+          </li>
+        </ul>
+        
+        <div class="architecture-diagram">
+          <h5>Serverless Chatbot Architecture on AWS</h5>
+          <img src="../resources/images/serverless-chatbot.png" alt="Serverless Chatbot Architecture" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="300" viewBox="0 0 600 300"><rect x="0" y="0" width="100%" height="100%" fill="%23f0f0f0"/><text x="50%" y="50%" font-family="Arial" font-size="24" text-anchor="middle">Serverless Chatbot Architecture</text><text x="50%" y="75%" font-family="Arial" font-size="14" text-anchor="middle">(Image placeholder)</text></svg>';">
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Hands-on Exercise</h3>
+        <p>In this exercise, we'll build a customer support chatbot using AWS Bedrock and Claude that can:</p>
+        <ul>
+          <li>Maintain conversation context</li>
+          <li>Answer product questions from a knowledge base</li>
+          <li>Process screenshots of errors</li>
+          <li>Escalate complex issues to human support</li>
+          <li>Stream responses for better user experience</li>
+        </ul>
+        
+        <a href="../notebooks/bedrock-claude-integration.html" class="btn">Open Exercise Notebook</a>
+      </div>
+
+      <div class="module-navigation">
+        <div class="nav-links">
+          <a href="rag.html" class="prev-link">← Previous: RAG Systems</a>
+          <a href="streamlit.html" class="next-link">Next: Streamlit UI →</a>
+        </div>
+        
+        <button class="mark-complete" data-section="chatbots">Mark as Complete</button>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="rag.html">RAG Systems</a></li>
+            <li><a href="chatbots.html" class="active">Chatbots</a></li>
+            <li><a href="streamlit.html">Streamlit UI</a></li>
+            <li><a href="../notebooks/">Python Notebooks</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Resources</h3>
+          <ul>
+            <li><a href="../notebooks/bedrock-claude-integration.html">Bedrock & Claude Integration</a></li>
+            <li><a href="../resources/glossary.html">GenAI Glossary</a></li>
+            <li><a href="../resources/reading.html">Further Reading</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="copyright">
+        <p>&copy; 2025 GenAI Training. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+  <script src="../js/main.js"></script>
+</body>
+</html>

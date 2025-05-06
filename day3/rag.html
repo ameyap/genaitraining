@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RAG Systems - Day 3</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+</head>
+<body>
+  <header>
+    <div class="container header-content">
+      <div class="logo">
+        <h1>Gen<span>AI</span> Training</h1>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li class="dropdown">
+            <a href="#">Day 1: Foundations</a>
+            <div class="dropdown-content">
+              <a href="../day1/genai-evolution.html">GenAI Evolution</a>
+              <a href="../day1/llm-basics.html">LLM Basics</a>
+            </div>
+          </li>
+          <li class="dropdown">
+            <a href="#">Day 2: Frameworks & Tools</a>
+            <div class="dropdown-content">
+              <a href="../day2/frameworks.html">LLM Frameworks</a>
+              <a href="../day2/tools-mcp.html">Tools & MCP</a>
+              <a href="../day2/agents-vs-tools.html">Agents vs Tools</a>
+            </div>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="active">Day 3: Applications</a>
+            <div class="dropdown-content">
+              <a href="rag.html" class="active">RAG Systems</a>
+              <a href="chatbots.html">Chatbots</a>
+              <a href="streamlit.html">Streamlit UI</a>
+            </div>
+          </li>
+          <li><a href="../notebooks/">Notebooks</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" style="background: linear-gradient(to right, #2c3e50, #16a085);">
+      <div class="container">
+        <h2>RAG Systems</h2>
+        <p>Building Retrieval-Augmented Generation pipelines for knowledge-grounded AI applications</p>
+      </div>
+    </section>
+
+    <div class="container page-content">
+      <div class="card">
+        <h2>Learning Objectives</h2>
+        <ul>
+          <li>Understand the core components and architecture of RAG systems</li>
+          <li>Learn document processing and chunking strategies</li>
+          <li>Compare vector databases and retrieval methods</li>
+          <li>Implement advanced retrieval techniques</li>
+          <li>Build effective response generation pipelines</li>
+          <li>Evaluate and optimize RAG system performance</li>
+        </ul>
+      </div>
+
+      <h2>Session Overview</h2>
+      <p>This module covers Retrieval-Augmented Generation (RAG), a powerful approach that enhances language model outputs with external knowledge. We'll explore the complete RAG pipeline from document processing to response generation, focusing on techniques to improve accuracy and relevance.</p>
+
+      <div class="card">
+        <h3>Intermediate Section: RAG Fundamentals</h3>
+        <h4>Vector Databases Overview</h4>
+        <p>Vector databases are specialized for storing and retrieving high-dimensional vectors:</p>
+        <ul>
+          <li>Efficient similarity search in vector space</li>
+          <li>Handling of metadata alongside vectors</li>
+          <li>Indexing techniques for faster retrieval</li>
+          <li>Clustering and partitioning capabilities</li>
+          <li>Hybrid search combining semantic and keyword matching</li>
+        </ul>
+        
+        <p>Popular vector database options include:</p>
+        <ul>
+          <li><strong>Chroma</strong>: Lightweight, in-memory embeddings database</li>
+          <li><strong>FAISS</strong>: Facebook AI's efficient similarity search library</li>
+          <li><strong>Pinecone</strong>: Managed vector database service</li>
+          <li><strong>Weaviate</strong>: Open-source vector search engine</li>
+          <li><strong>Milvus</strong>: Distributed vector database for enterprise use</li>
+          <li><strong>Qdrant</strong>: Vector database with filtering capabilities</li>
+        </ul>
+        
+        <div class="code-example">
+          <h5>Basic Vector Database Setup:</h5>
+          <pre><code class="language-python">from langchain.vectorstores import Chroma
+from langchain.embeddings import OpenAIEmbeddings
+
+# Initialize the embedding model
+embedding_model = OpenAIEmbeddings()
+
+# Create a vector store from documents
+vector_db = Chroma.from_documents(
+    documents=chunks,  # Document chunks
+    embedding=embedding_model,
+    persist_directory='./chroma_db'
+)
+
+# Simple similarity search
+results = vector_db.similarity_search(
+    query="How do vector databases work?",
+    k=3  # Return top 3 results
+)</code></pre>
+        </div>
+        
+        <h4>Embedding Models</h4>
+        <p>Embedding models convert text into numerical vector representations:</p>
+        <ul>
+          <li>Capture semantic meaning in high-dimensional space</li>
+          <li>Enable similarity comparisons between texts</li>
+          <li>Form the foundation for retrieval in RAG systems</li>
+        </ul>
+        
+        <p>Common embedding model options:</p>
+        <ul>
+          <li><strong>OpenAI embeddings</strong>: High-quality but API-based</li>
+          <li><strong>Sentence Transformers</strong>: Strong open-source options</li>
+          <li><strong>E5, BGE, and GTE</strong>: Specialized for retrieval tasks</li>
+          <li><strong>Domain-specific embeddings</strong>: Optimized for particular fields</li>
+          <li><strong>Multilingual embeddings</strong>: Support for multiple languages</li>
+        </ul>
+        
+        <p>Selection criteria for embedding models:</p>
+        <ul>
+          <li>Performance on domain-specific content</li>
+          <li>Vector dimensions and computational requirements</li>
+          <li>Self-hosted vs. API-based preferences</li>
+          <li>Consistency with chunking strategy</li>
+        </ul>
+        
+        <h4>Basic Retrieval Techniques</h4>
+        <p>Core approaches to retrieving relevant documents:</p>
+        <ul>
+          <li><strong>k-NN search</strong>: Find k most similar vectors by distance</li>
+          <li><strong>ANN search</strong>: Approximate nearest neighbors for efficiency</li>
+          <li><strong>Maximum Marginal Relevance (MMR)</strong>: Balance relevance and diversity</li>
+          <li><strong>Metadata filtering</strong>: Narrow search using document attributes</li>
+          <li><strong>Keyword-boosted search</strong>: Combine semantic and lexical matching</li>
+        </ul>
+        
+        <div class="code-example">
+          <h5>Retrieval with MMR and Metadata:</h5>
+          <pre><code class="language-python">from langchain.retrievers import ContextualCompressionRetriever
+from langchain.retrievers.document_compressors import EmbeddingsFilter
+
+# Create a base retriever
+base_retriever = vector_db.as_retriever(search_type="mmr", search_kwargs={
+    "k": 10,  # Retrieve more documents initially
+    "lambda_mult": 0.5  # Balance between relevance and diversity
+})
+
+# Add metadata filtering
+filtered_retriever = base_retriever.copy()
+filtered_retriever.search_kwargs["filter"] = {
+    "source": "company_handbook",
+    "date": {"$gte": "2023-01-01"}
+}
+
+# Retrieve documents
+results = filtered_retriever.get_relevant_documents(
+    "What is our vacation policy?"
+)</code></pre>
+        </div>
+        
+        <h4>Response Generation</h4>
+        <p>Effectively using retrieved documents to generate responses:</p>
+        <ul>
+          <li>Context integration into prompts</li>
+          <li>Source citation and attribution</li>
+          <li>Handling conflicting information</li>
+          <li>Managing context window limitations</li>
+          <li>Formatting and structuring responses</li>
+        </ul>
+        
+        <p>Common response generation patterns:</p>
+        <ul>
+          <li><strong>Stuff method</strong>: Insert all retrieved documents into context</li>
+          <li><strong>Map-reduce method</strong>: Process each document separately, then combine</li>
+          <li><strong>Refine method</strong>: Iteratively improve answer with each document</li>
+          <li><strong>Map-rerank method</strong>: Generate multiple answers and select best</li>
+        </ul>
+        
+        <div class="code-example">
+          <h5>Basic RAG Chain:</h5>
+          <pre><code class="language-python">from langchain.chains import RetrievalQA
+from langchain.chat_models import ChatOpenAI
+
+# Initialize LLM
+llm = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0)
+
+# Create QA chain
+qa_chain = RetrievalQA.from_chain_type(
+    llm=llm,
+    chain_type="stuff",  # Simplest method
+    retriever=retriever,
+    return_source_documents=True  # Include sources
+)
+
+# Generate response
+response = qa_chain({"query": "What is the company's remote work policy?"})
+print(response["result"])</code></pre>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Advanced Section: Advanced RAG Techniques</h3>
+        <h4>Query Reformulation</h4>
+        <p>Improving retrieval by transforming the original query:</p>
+        <ul>
+          <li><strong>Query expansion</strong>: Adding related terms to broaden search</li>
+          <li><strong>HyDE (Hypothetical Document Embeddings)</strong>: Generate and embed a hypothetical answer</li>
+          <li><strong>Multi-query generation</strong>: Create multiple query variants</li>
+          <li><strong>Query compression</strong>: Extract key elements from verbose queries</li>
+          <li><strong>Query routing</strong>: Direct queries to specialized retrievers</li>
+        </ul>
+        
+        <div class="code-example">
+          <h5>Multi-query Generation:</h5>
+          <pre><code class="language-python">from langchain.retrievers.multi_query import MultiQueryRetriever
+
+# Create a multi-query retriever
+multi_query_retriever = MultiQueryRetriever.from_llm(
+    retriever=base_retriever,
+    llm=ChatOpenAI(temperature=0)
+)
+
+# Original query
+query = "How do I set up my out-of-office message?"
+
+# This will generate alternative queries like:
+# - "What is the process for configuring vacation responders?"
+# - "How to create automatic email replies when away?"
+# - "Setting up automatic responses in the company email system?"
+
+results = multi_query_retriever.get_relevant_documents(query)</code></pre>
+        </div>
+        
+        <h4>Multi-step Retrieval</h4>
+        <p>Breaking retrieval into multiple stages for improved accuracy:</p>
+        <ul>
+          <li><strong>Parent-child retrieval</strong>: Get parent documents first, then retrieve children</li>
+          <li><strong>Recursive retrieval</strong>: Use initial results to inform subsequent queries</li>
+          <li><strong>Step-back prompting</strong>: Retrieve general context before specific details</li>
+          <li><strong>Knowledge graph navigation</strong>: Follow entity relationships across documents</li>
+          <li><strong>Chain of retrieval</strong>: Sequential targeted retrievals for complex questions</li>
+        </ul>
+        
+        <div class="code-example">
+          <h5>Parent-Child Retrieval Example:</h5>
+          <pre><code class="language-python">def parent_child_retrieval(query, parent_db, child_db):
+    # Step 1: Retrieve relevant parent documents (e.g., chapter summaries)
+    parent_docs = parent_db.similarity_search(query, k=2)
+    
+    # Step 2: Extract parent IDs to filter children
+    parent_ids = [doc.metadata["id"] for doc in parent_docs]
+    
+    # Step 3: Retrieve child documents (e.g., detailed sections)
+    # belonging to these parent documents
+    all_child_docs = []
+    for parent_id in parent_ids:
+        child_docs = child_db.similarity_search(
+            query,
+            k=5,  # More specific chunks from each parent
+            filter={"parent_id": parent_id}
+        )
+        all_child_docs.extend(child_docs)
+    
+    return all_child_docs</code></pre>
+        </div>
+        
+        <h4>Hybrid Search Methods</h4>
+        <p>Combining multiple retrieval approaches for better results:</p>
+        <ul>
+          <li><strong>BM25 + semantic search</strong>: Lexical and semantic matching</li>
+          <li><strong>Ensemble retrievers</strong>: Combining results from multiple retrievers</li>
+          <li><strong>Re-ranking</strong>: Initial broad retrieval followed by more precise ranking</li>
+          <li><strong>Fusion methods</strong>: Reciprocal rank fusion and other combination techniques</li>
+          <li><strong>Contextual compression</strong>: Post-retrieval filtering of irrelevant content</li>
+        </ul>
+        
+        <div class="code-example">
+          <h5>Hybrid Search with Ensemble Retrieval:</h5>
+          <pre><code class="language-python">from langchain.retrievers import BM25Retriever, EnsembleRetriever
+
+# Create semantic search retriever
+semantic_retriever = vector_db.as_retriever(search_kwargs={"k": 10})
+
+# Create keyword-based retriever
+keyword_retriever = BM25Retriever.from_documents(
+    documents=documents,
+    k=10
+)
+
+# Create ensemble retriever
+ensemble_retriever = EnsembleRetriever(
+    retrievers=[semantic_retriever, keyword_retriever],
+    weights=[0.7, 0.3]  # Weight semantic search higher
+)
+
+# Retrieve documents
+results = ensemble_retriever.get_relevant_documents(
+    "company policy on work from home"
+)</code></pre>
+        </div>
+        
+        <h4>Self-RAG and Hallucination Reduction</h4>
+        <p>Techniques to improve factual accuracy and reduce hallucinations:</p>
+        <ul>
+          <li><strong>Retrieval criticism</strong>: LLM evaluates retrieval quality</li>
+          <li><strong>Adaptive retrieval</strong>: Adjusting retrieval approach based on query</li>
+          <li><strong>Self-consistency checking</strong>: Verifying response against retrieved context</li>
+          <li><strong>Confidence scoring</strong>: Estimating certainty for different response parts</li>
+          <li><strong>Factual grounding</strong>: Explicit citation and attribution</li>
+        </ul>
+        
+        <div class="code-example">
+          <h5>Self-RAG Implementation:</h5>
+          <pre><code class="language-python">def self_rag(query, retriever, llm):
+    # Step 1: Initial retrieval
+    documents = retriever.get_relevant_documents(query)
+    
+    # Step 2: Evaluate retrieval quality
+    relevance_prompt = f"""
+    Evaluate if these retrieved documents are relevant to the query: {query}
+    
+    Documents:
+    {documents}
+    
+    Rate each document's relevance from 0-10 and explain why.
+    If overall relevance is low, suggest what information is missing.
+    """
+    
+    evaluation = llm.predict(relevance_prompt)
+    
+    # Step 3: Additional retrieval if needed
+    if "missing" in evaluation.lower() or "low" in evaluation.lower():
+        # Extract missing information types
+        missing_info_prompt = f"Based on this evaluation: {evaluation}
+What specific information is missing? List as keywords only."
+        missing_info = llm.predict(missing_info_prompt)
+        
+        # Retrieve additional documents
+        additional_docs = retriever.get_relevant_documents(missing_info)
+        documents.extend(additional_docs)
+    
+    # Step 4: Generate response with fact checking
+    response_prompt = f"""
+    Answer this query: {query}
+    
+    Use ONLY information from these documents:
+    {documents}
+    
+    For each statement in your answer, cite the specific document it came from.
+    If the documents don't contain enough information to answer accurately, state this clearly.
+    """
+    
+    response = llm.predict(response_prompt)
+    return response</code></pre>
+        </div>
+        
+        <h4>Evaluation of RAG Systems</h4>
+        <p>Comprehensive approaches to measuring RAG system performance:</p>
+        <ul>
+          <li><strong>Retrieval metrics</strong>: Precision, recall, NDCG, MRR</li>
+          <li><strong>Generation metrics</strong>: ROUGE, BLEU, BERTScore</li>
+          <li><strong>Factuality metrics</strong>: Faithfulness, attribution accuracy</li>
+          <li><strong>End-to-end evaluation</strong>: Task completion, answer correctness</li>
+          <li><strong>Human evaluation</strong>: User ratings, expert assessment</li>
+        </ul>
+        
+        <p>RAG-specific evaluation frameworks:</p>
+        <ul>
+          <li>RAGAS: Comprehensive RAG evaluation suite</li>
+          <li>TruLens: Evaluation focused on faithfulness</li>
+          <li>DeepEval: Multiple evaluation dimensions</li>
+        </ul>
+        
+        <div class="code-example">
+          <h5>Basic RAGAS Evaluation:</h5>
+          <pre><code class="language-python">from ragas.metrics import faithfulness, answer_relevancy, context_relevancy
+from ragas.metrics.critique import harmfulness
+from datasets import Dataset
+
+# Prepare evaluation data
+eval_data = {
+    "question": ["What is the company vacation policy?", ...],
+    "answer": ["The company offers 20 days of PTO annually...", ...],
+    "contexts": [["doc1", "doc2", ...], ...],
+    "ground_truths": [["Employees receive 20 days of vacation..."], ...]
+}
+
+# Convert to dataset
+dataset = Dataset.from_dict(eval_data)
+
+# Evaluate
+results = evaluate(
+    dataset=dataset,
+    metrics=[
+        faithfulness,
+        answer_relevancy,
+        context_relevancy,
+        harmfulness
+    ]
+)
+
+print("Faithfulness score:", results["faithfulness"])
+print("Answer relevancy score:", results["answer_relevancy"])
+print("Context relevancy score:", results["context_relevancy"])
+print("Harmfulness score:", results["harmfulness"])</code></pre>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Hands-on Exercise</h3>
+        <p>In this exercise, you'll build a complete RAG system for a company knowledge base. You'll:</p>
+        <ul>
+          <li>Process a collection of documentation files</li>
+          <li>Experiment with different chunking strategies</li>
+          <li>Set up a vector database with metadata filtering</li>
+          <li>Implement hybrid search with re-ranking</li>
+          <li>Build a response generation pipeline with source attribution</li>
+          <li>Evaluate the system's performance using RAGAS metrics</li>
+        </ul>
+        
+        <a href="../notebooks/rag-system-implementation.ipynb" class="btn">Open Exercise Notebook</a>
+      </div>
+
+      <div class="module-navigation">
+        <div class="nav-links">
+          <a href="../day2/agents-vs-tools.html" class="prev-link">← Previous: Agents vs Tools</a>
+          <a href="chatbots.html" class="next-link">Next: Chatbots →</a>
+        </div>
+        
+        <button class="mark-complete" data-section="rag">Mark as Complete</button>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="../day2/agents-vs-tools.html">Agents vs Tools</a></li>
+            <li><a href="rag.html" class="active">RAG Systems</a></li>
+            <li><a href="chatbots.html">Chatbots</a></li>
+            <li><a href="streamlit.html">Streamlit UI</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Resources</h3>
+          <ul>
+            <li><a href="../notebooks/">Python Notebooks</a></li>
+            <li><a href="../notebooks/rag-system-implementation.ipynb">RAG Implementation</a></li>
+            <li><a href="../resources/glossary.html">GenAI Glossary</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="copyright">
+        <p>&copy; 2025 GenAI Training. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+  <script src="../js/main.js"></script>
+</body>
+</html>

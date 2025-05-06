@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LLM Frameworks - Day 2</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+</head>
+<body>
+  <header>
+    <div class="container header-content">
+      <div class="logo">
+        <h1>Gen<span>AI</span> Training</h1>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li class="dropdown">
+            <a href="#">Day 1: Foundations</a>
+            <div class="dropdown-content">
+              <a href="../day1/genai-evolution.html">GenAI Evolution</a>
+              <a href="../day1/llm-basics.html">LLM Basics</a>
+            </div>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="active">Day 2: Frameworks & Tools</a>
+            <div class="dropdown-content">
+              <a href="frameworks.html" class="active">LLM Frameworks</a>
+              <a href="tools-mcp.html">Tools & MCP</a>
+              <a href="agents-vs-tools.html">Agents vs Tools</a>
+            </div>
+          </li>
+          <li class="dropdown">
+            <a href="#">Day 3: Applications</a>
+            <div class="dropdown-content">
+              <a href="../day3/rag.html">RAG Systems</a>
+              <a href="../day3/chatbots.html">Chatbots</a>
+              <a href="../day3/streamlit.html">Streamlit UI</a>
+            </div>
+          </li>
+          <li><a href="../notebooks/">Notebooks</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" style="background: linear-gradient(to right, #2c3e50, #8e44ad);">
+      <div class="container">
+        <h2>LLM Frameworks</h2>
+        <p>Building complex AI applications with modern orchestration frameworks</p>
+      </div>
+    </section>
+
+    <div class="container page-content">
+      <div class="card">
+        <h2>Learning Objectives</h2>
+        <ul>
+          <li>Understand the purpose and benefits of LLM frameworks</li>
+          <li>Compare features across major frameworks including LangChain and LangGraph</li>
+          <li>Design complex AI workflows using graph-based approaches</li>
+          <li>Implement memory systems and state management</li>
+          <li>Apply error handling and fallback strategies in LLM applications</li>
+        </ul>
+      </div>
+
+      <h2>Session Overview</h2>
+      <p>This module explores frameworks for building sophisticated applications with LLMs. We'll start with an overview of the major frameworks, then dive deeper into LangGraph's graph-based approach to creating stateful, reliable AI applications.</p>
+
+      <div class="card">
+        <h3>Intermediate Section: LLM Framework Overview</h3>
+        <h4>Why Use LLM Frameworks?</h4>
+        <p>Building production LLM applications involves solving several complex challenges:</p>
+        <ul>
+          <li>Prompt engineering and management</li>
+          <li>Context window limitations</li>
+          <li>Retrieval and data augmentation</li>
+          <li>Chaining multiple operations</li>
+          <li>Memory and state management</li>
+          <li>Tool integration and orchestration</li>
+        </ul>
+        
+        <p>Frameworks provide abstracted, reusable solutions to these challenges, allowing developers to:</p>
+        <ul>
+          <li>Rapidly prototype and iterate</li>
+          <li>Follow established patterns and best practices</li>
+          <li>Achieve better reliability and maintainability</li>
+          <li>Focus on business logic rather than infrastructure</li>
+        </ul>
+        
+        <h4>LangChain Fundamentals</h4>
+        <p>LangChain is one of the most widely adopted frameworks for building LLM applications. Its core components include:</p>
+        
+        <ul>
+          <li><strong>Models</strong>: Abstractions for interacting with various language models</li>
+          <li><strong>Prompts</strong>: Template management with variable substitution</li>
+          <li><strong>Chains</strong>: Combining multiple components into sequences</li>
+          <li><strong>Memory</strong>: Maintaining conversation history and context</li>
+          <li><strong>Retrievers</strong>: Finding relevant information from external sources</li>
+          <li><strong>Tools</strong>: Integrating external capabilities and APIs</li>
+          <li><strong>Agents</strong>: Systems that dynamically select and use tools</li>
+        </ul>
+        
+        <div class="code-example">
+          <h5>Basic LangChain Example:</h5>
+          <pre><code class="language-python">from langchain.llms import OpenAI
+from langchain.prompts import PromptTemplate
+from langchain.chains import LLMChain
+
+# Initialize the LLM
+llm = OpenAI(temperature=0.7)
+
+# Create a prompt template
+prompt = PromptTemplate(
+    input_variables=["topic"],
+    template="Write a short paragraph about {topic}."
+)
+
+# Create and run the chain
+chain = LLMChain(llm=llm, prompt=prompt)
+result = chain.run(topic="artificial intelligence")
+print(result)</code></pre>
+        </div>
+        
+        <h4>LangGraph Introduction</h4>
+        <p>LangGraph extends LangChain with graph-based workflows that enable:</p>
+        <ul>
+          <li>Complex, non-linear execution paths</li>
+          <li>Stateful applications with persistent memory</li>
+          <li>Conditional branching and decision making</li>
+          <li>Cycles and iterations (for refinement or retry)</li>
+          <li>Human-in-the-loop interactions</li>
+        </ul>
+        
+        <div class="code-example">
+          <h5>Simple LangGraph Example:</h5>
+          <pre><code class="language-python">from langgraph.graph import StateGraph
+from langchain.chat_models import ChatOpenAI
+from langchain.prompts import ChatPromptTemplate
+import json
+
+# Define our state
+class GraphState:
+    messages: list
+    decision: str = None
+
+# Define nodes
+def generate_response(state):
+    messages = state["messages"]
+    llm = ChatOpenAI(temperature=0)
+    response = llm.invoke(messages)
+    return {"messages": messages + [response]}
+
+def decide_next_step(state):
+    messages = state["messages"]
+    llm = ChatOpenAI(temperature=0)
+    prompt = ChatPromptTemplate.from_template(
+        "Based on the conversation, should we: (A) Ask for clarification, or (B) Provide a final answer? Respond with just A or B."
+    )
+    response = llm.invoke(prompt.format_messages(conversation=str(messages)))
+    decision = response.content.strip()
+    return {"decision": decision}
+
+# Build graph
+graph = StateGraph(GraphState)
+graph.add_node("generate_response", generate_response)
+graph.add_node("decide_next_step", decide_next_step)
+
+# Add edges
+graph.add_edge("generate_response", "decide_next_step")
+graph.add_conditional_edges(
+    "decide_next_step",
+    lambda state: state["decision"],
+    {
+        "A": "generate_response",
+        "B": END
+    }
+)
+graph.set_entry_point("generate_response")
+
+# Compile the graph
+agent = graph.compile()</code></pre>
+        </div>
+        
+        <h4>Semantic Kernel Basics</h4>
+        <p>Microsoft's Semantic Kernel offers another approach to building AI applications:</p>
+        <ul>
+          <li>Designed for enterprise integration with Microsoft ecosystems</li>
+          <li>Focus on "skills" as the basic unit of functionality</li>
+          <li>Strong typing and C#/.NET support</li>
+          <li>Memory and planning capabilities</li>
+          <li>Connector-based architecture</li>
+        </ul>
+        
+        <h4>Comparison of Major Frameworks</h4>
+        <table class="framework-comparison">
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>LangChain</th>
+              <th>LangGraph</th>
+              <th>Semantic Kernel</th>
+              <th>LlamaIndex</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Primary Focus</td>
+              <td>Chainable components</td>
+              <td>Graph-based workflows</td>
+              <td>Skills & connectors</td>
+              <td>Data indexing & retrieval</td>
+            </tr>
+            <tr>
+              <td>State Management</td>
+              <td>Basic</td>
+              <td>Advanced</td>
+              <td>Good</td>
+              <td>Limited</td>
+            </tr>
+            <tr>
+              <td>Language Support</td>
+              <td>Python, JS/TS</td>
+              <td>Python</td>
+              <td>C#, Python, Java</td>
+              <td>Python, JS/TS</td>
+            </tr>
+            <tr>
+              <td>Visualization</td>
+              <td>Limited</td>
+              <td>Strong</td>
+              <td>Good</td>
+              <td>Limited</td>
+            </tr>
+            <tr>
+              <td>Enterprise Features</td>
+              <td>Growing</td>
+              <td>Limited</td>
+              <td>Strong</td>
+              <td>Moderate</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h3>Advanced Section: LangGraph Deep Dive</h3>
+        <h4>Graph-based Workflows</h4>
+        <p>LangGraph uses a directed graph structure where:</p>
+        <ul>
+          <li><strong>Nodes</strong>: Functions that process state and return updates</li>
+          <li><strong>Edges</strong>: Connections defining the flow between nodes</li>
+          <li><strong>Conditional edges</strong>: Routes based on state conditions</li>
+          <li><strong>State</strong>: Shared context passed between nodes</li>
+        </ul>
+        
+        <p>This approach enables several key workflow patterns:</p>
+        <ul>
+          <li>Linear sequences (similar to chains)</li>
+          <li>Branching paths based on decisions</li>
+          <li>Cycles for iterative improvement</li>
+          <li>Human-in-the-loop feedback integration</li>
+          <li>Parallel processing paths</li>
+        </ul>
+        
+        <h4>State Management</h4>
+        <p>Effective state management is crucial for complex AI applications:</p>
+        <ul>
+          <li><strong>TypedDict/Pydantic</strong>: Enforcing state structure and validation</li>
+          <li><strong>Partial updates</strong>: Nodes only modify their relevant parts of state</li>
+          <li><strong>Immutability</strong>: State copies to prevent unintended side effects</li>
+          <li><strong>Persistence</strong>: Saving and loading state for long-running processes</li>
+          <li><strong>Checkpointing</strong>: Capturing intermediate states for resumability</li>
+        </ul>
+        
+        <div class="code-example">
+          <h5>State Management Example:</h5>
+          <pre><code class="language-python">from typing import TypedDict, List, Dict, Any
+from pydantic import BaseModel
+
+# Using TypedDict
+class AgentState(TypedDict):
+    messages: List[Dict[str, Any]]
+    current_plan: List[str]
+    tools_used: List[str]
+    intermediate_results: Dict[str, Any]
+
+# Or using Pydantic
+class AgentStatePydantic(BaseModel):
+    messages: List[Dict[str, Any]]
+    current_plan: List[str] = []
+    tools_used: List[str] = []
+    intermediate_results: Dict[str, Any] = {}</code></pre>
+        </div>
+        
+        <h4>Memory Systems Integration</h4>
+        <p>LangGraph provides several memory integration patterns:</p>
+        <ul>
+          <li><strong>Conversation buffers</strong>: Simple message history</li>
+          <li><strong>Summary memories</strong>: Compressed historical context</li>
+          <li><strong>Entity memories</strong>: Tracking specific entities mentioned</li>
+          <li><strong>Vector stores</strong>: Retrieving relevant past interactions</li>
+          <li><strong>Structured memories</strong>: Maintaining organized knowledge</li>
+        </ul>
+        
+        <p>Memory can be incorporated into the graph state and updated by specific nodes:</p>
+        
+        <div class="code-example">
+          <h5>Memory Integration Example:</h5>
+          <pre><code class="language-python">class ConversationState(TypedDict):
+    messages: List[Dict[str, Any]]
+    memory: Dict[str, Any]
+
+def update_memory(state):
+    # Extract entities from the latest message
+    latest_message = state["messages"][-1]["content"]
+    entities = extract_entities(latest_message)
+    
+    # Update our memory with new information
+    memory = state["memory"].copy()
+    for entity, info in entities.items():
+        if entity not in memory:
+            memory[entity] = info
+        else:
+            memory[entity].update(info)
+    
+    return {"memory": memory}</code></pre>
+        </div>
+        
+        <h4>Error Handling and Fallbacks</h4>
+        <p>Graph-based workflows excel at handling errors gracefully:</p>
+        <ul>
+          <li><strong>Try-catch patterns</strong>: Redirecting flow when errors occur</li>
+          <li><strong>Retry mechanisms</strong>: Attempting operations multiple times</li>
+          <li><strong>Graceful degradation</strong>: Falling back to simpler approaches</li>
+          <li><strong>Human intervention</strong>: Bringing humans into the loop when needed</li>
+          <li><strong>Multi-model fallbacks</strong>: Trying alternative models when one fails</li>
+        </ul>
+        
+        <div class="code-example">
+          <h5>Error Handling Example:</h5>
+          <pre><code class="language-python">def safe_tool_call(state):
+    try:
+        tool_input = state["tool_input"]
+        tool_name = state["selected_tool"]
+        result = call_tool(tool_name, tool_input)
+        return {"tool_result": result, "error": None}
+    except Exception as e:
+        return {"tool_result": None, "error": str(e)}
+
+def handle_tool_result(state):
+    if state["error"] is not None:
+        # Handle the error
+        return {"messages": state["messages"] + [{"role": "system", "content": f"Tool execution failed: {state['error']}. Please try a different approach."}]}
+    else:
+        # Process the successful result
+        return {"messages": state["messages"] + [{"role": "system", "content": f"Tool result: {state['tool_result']}"}]}
+
+# In the graph
+graph.add_node("safe_tool_call", safe_tool_call)
+graph.add_node("handle_tool_result", handle_tool_result)
+graph.add_edge("safe_tool_call", "handle_tool_result")</code></pre>
+        </div>
+        
+        <h4>Advanced Patterns and Architectures</h4>
+        <p>LangGraph enables sophisticated design patterns:</p>
+        <ul>
+          <li><strong>Supervisor pattern</strong>: A controlling agent that coordinates subtasks</li>
+          <li><strong>Reflection loops</strong>: Self-critique and improvement cycles</li>
+          <li><strong>Planning-execution-monitoring</strong>: Comprehensive task management</li>
+          <li><strong>Multi-agent systems</strong>: Coordinating specialized agents</li>
+          <li><strong>Hierarchical workflows</strong>: Nested graphs for complex tasks</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Hands-on Exercise</h3>
+        <p>In this exercise, we'll build a multi-step data analysis agent using LangGraph that can:</p>
+        <ul>
+          <li>Parse natural language questions about data</li>
+          <li>Generate the appropriate Python code for analysis</li>
+          <li>Execute the code safely</li>
+          <li>Interpret and explain the results</li>
+          <li>Handle errors through self-correction</li>
+        </ul>
+        
+        <a href="../notebooks/langgraph-agent-implementation.html" class="btn">Open Tutorial Notebook</a>
+      </div>
+
+      <div class="module-navigation">
+        <div class="nav-links">
+          <a href="../day1/llm-basics.html" class="prev-link">← Previous: LLM Basics</a>
+          <a href="tools-mcp.html" class="next-link">Next: Tools & MCP Integration →</a>
+        </div>
+        
+        <button class="mark-complete" data-section="frameworks">Mark as Complete</button>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="../day1/genai-evolution.html">GenAI Evolution</a></li>
+            <li><a href="../day1/llm-basics.html">LLM Basics</a></li>
+            <li><a href="frameworks.html" class="active">LLM Frameworks</a></li>
+            <li><a href="tools-mcp.html">Tools & MCP</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Resources</h3>
+          <ul>
+            <li><a href="../notebooks/">Python Notebooks</a></li>
+            <li><a href="../resources/glossary.html">GenAI Glossary</a></li>
+            <li><a href="../resources/reading.html">Further Reading</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="copyright">
+        <p>&copy; 2025 GenAI Training. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+  <script src="../js/main.js"></script>
+</body>
+</html>
