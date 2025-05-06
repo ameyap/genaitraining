@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GenAI Evolution Timeline - GenAI Training</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    /* Timeline specific styles */
+    .timeline {
+      position: relative;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 0;
+    }
+    
+    /* Styles for timeline images */
+    .timeline-image {
+      width: 100%;
+      max-height: 180px;
+      object-fit: cover;
+      border-radius: 4px;
+      margin: 10px 0;
+      transition: transform 0.3s ease;
+    }
+    
+    .timeline-image:hover {
+      transform: scale(1.05);
+    }
+    
+    /* Styles for research paper links */
+    .paper-link {
+      display: inline-block;
+      margin-top: 8px;
+      font-size: 0.85rem;
+      color: #2962ff;
+      text-decoration: none;
+      border-bottom: 1px dotted #2962ff;
+      transition: color 0.3s, border-color 0.3s;
+    }
+    
+    .paper-link:hover {
+      color: #0039cb;
+      border-bottom: 1px solid #0039cb;
+    }
+    
+    .technical-details {
+      margin-top: 12px;
+      padding: 10px;
+      background-color: #f8f9fa;
+      border-left: 3px solid #4b6cb7;
+      font-size: 0.9rem;
+    }
+    
+    .reference-section {
+      margin-top: 15px;
+      padding-top: 10px;
+      border-top: 1px solid #e0e0e0;
+      font-size: 0.85rem;
+    }
+    
+    .research-papers {
+      list-style-type: none;
+      padding-left: 0;
+    }
+    
+    .research-papers li {
+      margin-bottom: 8px;
+      padding-left: 20px;
+      position: relative;
+    }
+    
+    .research-papers li:before {
+      content: '📄';
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+    
+    .research-papers a {
+      color: #2962ff;
+      text-decoration: none;
+      border-bottom: 1px dotted #2962ff;
+      transition: color 0.3s, border-color 0.3s;
+    }
+    
+    .research-papers a:hover {
+      color: #0039cb;
+      border-bottom: 1px solid #0039cb;
+    }
+    
+    .timeline::after {
+      content: '';
+      position: absolute;
+      width: 6px;
+      background-color: #4b6cb7;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      margin-left: -3px;
+      border-radius: 3px;
+    }
+    
+    .timeline-item {
+      padding: 10px 40px;
+      position: relative;
+      background-color: inherit;
+      width: 50%;
+      margin-bottom: 30px;
+    }
+    
+    .timeline-item::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: white;
+      border: 4px solid #4b6cb7;
+      top: 15px;
+      border-radius: 50%;
+      z-index: 1;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .timeline-item:hover::after {
+      transform: scale(1.3);
+      box-shadow: 0 0 10px rgba(75, 108, 183, 0.7);
+    }
+    
+    .left {
+      left: 0;
+    }
+    
+    .right {
+      left: 50%;
+    }
+    
+    .left::after {
+      right: -14px;
+    }
+    
+    .right::after {
+      left: -14px;
+    }
+    
+    .timeline-content {
+      padding: 20px 30px;
+      background-color: white;
+      position: relative;
+      border-radius: 6px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .timeline-content:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+    
+    .timeline-year {
+      position: absolute;
+      top: -10px;
+      font-size: 0.9rem;
+      padding: 5px 15px;
+      background: #4b6cb7;
+      color: white;
+      border-radius: 20px;
+    }
+    
+    .left .timeline-year {
+      right: 20px;
+    }
+    
+    .right .timeline-year {
+      left: 20px;
+    }
+    
+    .timeline-header {
+      margin-top: 15px;
+      margin-bottom: 10px;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+    
+    .timeline-category {
+      font-size: 0.8rem;
+      font-weight: 500;
+      display: inline-block;
+      margin-bottom: 10px;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+    
+    .model {
+      background-color: #e3f2fd;
+      color: #1976d2;
+    }
+    
+    .architecture {
+      background-color: #e8f5e9;
+      color: #388e3c;
+    }
+    
+    .milestone {
+      background-color: #fff3e0;
+      color: #f57c00;
+    }
+    
+    .company {
+      background-color: #f3e5f5;
+      color: #9c27b0;
+    }
+    
+    .filter-container {
+      margin-bottom: 30px;
+      text-align: center;
+    }
+    
+    .filter-button {
+      margin: 0 5px;
+      padding: 8px 15px;
+      background: #f5f5f5;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background-color 0.3s;
+    }
+    
+    .filter-button.active {
+      background-color: #4b6cb7;
+      color: white;
+    }
+    
+    .filter-button:hover:not(.active) {
+      background-color: #e0e0e0;
+    }
+    
+    /* Responsive design */
+    @media screen and (max-width: 768px) {
+      .timeline::after {
+        left: 31px;
+      }
+      
+      .timeline-item {
+        width: 100%;
+        padding-left: 70px;
+        padding-right: 25px;
+      }
+      
+      .timeline-item::after {
+        left: 15px;
+      }
+      
+      .left::after {
+        left: 15px;
+      }
+      
+      .right {
+        left: 0%;
+      }
+      
+      .left .timeline-year, .right .timeline-year {
+        left: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container header-content">
+      <div class="logo">
+        <h1>Gen<span>AI</span> Training</h1>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li class="dropdown">
+            <a href="#" class="active">Day 1: Foundations</a>
+            <div class="dropdown-content">
+              <a href="../day1/genai-evolution.html" class="active">GenAI Evolution</a>
+              <a href="../day1/llm-basics.html">LLM Basics</a>
+            </div>
+          </li>
+          <li class="dropdown">
+            <a href="#">Day 2: Frameworks & Tools</a>
+            <div class="dropdown-content">
+              <a href="../day2/frameworks.html">LLM Frameworks</a>
+              <a href="../day2/tools-mcp.html">Tools & MCP</a>
+              <a href="../day2/agents-vs-tools.html">Agents vs Tools</a>
+            </div>
+          </li>
+          <li class="dropdown">
+            <a href="#">Day 3: Applications</a>
+            <div class="dropdown-content">
+              <a href="../day3/rag.html">RAG Systems</a>
+              <a href="../day3/chatbots.html">Chatbots</a>
+              <a href="../day3/streamlit.html">Streamlit UI</a>
+            </div>
+          </li>
+          <li><a href="index.html">Notebooks</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" style="background: linear-gradient(to right, #2c3e50, #4b6cb7);">
+      <div class="container">
+        <h2>Interactive GenAI Evolution Timeline</h2>
+        <p>Explore the key milestones in the development of Generative AI</p>
+      </div>
+    </section>
+
+    <div class="container page-content">
+      <div class="card">
+        <h2>GenAI Development Timeline</h2>
+        <p>This interactive timeline showcases the major developments in Generative AI history, from early neural networks to modern large language models. Use the filters below to focus on specific types of milestones.</p>
+        
+        <div class="filter-container">
+          <button class="filter-button active" data-filter="all">All</button>
+          <button class="filter-button" data-filter="architecture">Architectures</button>
+          <button class="filter-button" data-filter="model">Models</button>
+          <button class="filter-button" data-filter="milestone">Milestones</button>
+          <button class="filter-button" data-filter="company">Companies</button>
+        </div>
+      </div>
+
+      <div class="timeline">
+        <!-- 1950s-1960s -->
+        <div class="timeline-item left" data-category="architecture">
+          <div class="timeline-content">
+            <div class="timeline-year">1958</div>
+            <span class="timeline-category architecture">Architecture</span>
+            <h3 class="timeline-header">Perceptron</h3>
+            <p>Frank Rosenblatt invented the perceptron, the first algorithmic model that could learn skills through trial and error. This was a major step toward modern neural networks.</p>
+          </div>
+        </div>
+
+        <!-- 1980s -->
+        <div class="timeline-item right" data-category="architecture">
+          <div class="timeline-content">
+            <div class="timeline-year">1986</div>
+            <span class="timeline-category architecture">Architecture</span>
+            <h3 class="timeline-header">Backpropagation Algorithm</h3>
+            <p>Backpropagation algorithm was popularized, enabling more effective training of multi-layer neural networks and laying groundwork for future deep learning advances.</p>
+          </div>
+        </div>
+
+        <!-- 2006 -->
+        <div class="timeline-item left" data-category="milestone">
+          <div class="timeline-content">
+            <div class="timeline-year">2006</div>
+            <span class="timeline-category milestone">Milestone</span>
+            <h3 class="timeline-header">Deep Learning Revival</h3>
+            <p>Geoffrey Hinton, Ruslan Salakhutdinov, and colleagues published work on deep belief networks and unsupervised pre-training, sparking a revival in neural network research.</p>
+          </div>
+        </div>
+
+        <!-- 2012 -->
+        <div class="timeline-item right" data-category="milestone">
+          <div class="timeline-content">
+            <div class="timeline-year">2012</div>
+            <span class="timeline-category milestone">Milestone</span>
+            <h3 class="timeline-header">AlexNet</h3>
+            <p>AlexNet won the ImageNet competition, demonstrating the power of deep convolutional neural networks and marking the beginning of the deep learning revolution in computer vision.</p>
+          </div>
+        </div>
+
+        <!-- 2014 -->
+        <div class="timeline-item left" data-category="architecture">
+          <div class="timeline-content">
+            <div class="timeline-year">2014</div>
+            <span class="timeline-category architecture">Architecture</span>
+            <h3 class="timeline-header">Generative Adversarial Networks (GANs)</h3>
+            <p>Ian Goodfellow and colleagues introduced GANs, a novel approach where two neural networks compete to generate realistic synthetic data, revolutionizing image generation.</p>
+          </div>
+        </div>
+
+        <!-- 2015 -->
+        <div class="timeline-item right" data-category="architecture">
+          <div class="timeline-content">
+            <div class="timeline-year">2015</div>
+            <span class="timeline-category architecture">Architecture</span>
+            <h3 class="timeline-header">Variational Autoencoders (VAEs)</h3>
+            <p>VAEs gained popularity for image generation, offering a probabilistic approach to creating new samples by learning the underlying data distribution.</p>
+          </div>
+        </div>
+
+        <!-- 2017 -->
+        <div class="timeline-item left" data-category="architecture">
+          <div class="timeline-content">
+            <div class="timeline-year">2017</div>
+            <span class="timeline-category architecture">Architecture</span>
+            <h3 class="timeline-header">Transformer Architecture</h3>
+            <p>Google researchers published "Attention Is All You Need," introducing the Transformer architecture that revolutionized NLP by using self-attention mechanisms instead of recurrent networks.</p>
+            
+            <img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*BHzGVskWGS_3jEcYYi6miQ.png" alt="Transformer Architecture Diagram" class="timeline-image">
+            
+            <div class="technical-details">
+              The Transformer architecture introduced several key innovations:
+              <ul>
+                <li><strong>Self-Attention</strong>: Computes attention weights between all positions in a sequence</li>
+                <li><strong>Multi-Head Attention</strong>: Runs multiple attention operations in parallel</li>
+                <li><strong>Positional Encoding</strong>: Preserves sequence order information</li>
+                <li><strong>Layer Normalization</strong>: Stabilizes training across deep layers</li>
+                <li><strong>Residual Connections</strong>: Enables training of very deep networks</li>
+              </ul>
+              The formula for self-attention:
+              <pre>Attention(Q, K, V) = softmax(QK<sup>T</sup> / √d<sub>k</sub>)V</pre>
+            </div>
+            
+            <div class="reference-section">
+              <a href="https://arxiv.org/abs/1706.03762" target="_blank" class="paper-link">Read the original paper: "Attention Is All You Need" (2017)</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2018 -->
+        <div class="timeline-item right" data-category="model">
+          <div class="timeline-content">
+            <div class="timeline-year">2018</div>
+            <span class="timeline-category model">Model</span>
+            <h3 class="timeline-header">BERT</h3>
+            <p>Google introduced BERT (Bidirectional Encoder Representations from Transformers), demonstrating the power of bidirectional pre-training and achieving state-of-the-art results on multiple NLP tasks.</p>
+            
+            <img src="https://miro.medium.com/v2/resize:fit:1400/1*bqTlW5IUVWQQKtjKnAc_5A.png" alt="BERT Architecture and Pretraining Tasks" class="timeline-image">
+            
+            <div class="technical-details">
+              BERT's key innovations include:
+              <ul>
+                <li><strong>Bidirectional Context</strong>: Models context from both directions simultaneously</li>
+                <li><strong>Pre-training Tasks</strong>:
+                  <ul>
+                    <li><em>Masked Language Modeling (MLM)</em>: 15% of tokens are masked and must be predicted</li>
+                    <li><em>Next Sentence Prediction (NSP)</em>: Model predicts if two segments follow each other</li>
+                  </ul>
+                </li>
+                <li><strong>Model Sizes</strong>: BERT-Base (110M parameters) and BERT-Large (340M parameters)</li>
+              </ul>
+            </div>
+            
+            <div class="reference-section">
+              <a href="https://arxiv.org/abs/1810.04805" target="_blank" class="paper-link">Read the original paper: "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding" (2018)</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2019 -->
+        <div class="timeline-item left" data-category="model">
+          <div class="timeline-content">
+            <div class="timeline-year">2019</div>
+            <span class="timeline-category model">Model</span>
+            <h3 class="timeline-header">GPT-2</h3>
+            <p>OpenAI released GPT-2 with 1.5B parameters, showing impressive text generation capabilities that raised both excitement and ethical concerns about misuse.</p>
+          </div>
+        </div>
+
+        <!-- 2020 -->
+        <div class="timeline-item right" data-category="model">
+          <div class="timeline-content">
+            <div class="timeline-year">2020</div>
+            <span class="timeline-category model">Model</span>
+            <h3 class="timeline-header">GPT-3</h3>
+            <p>OpenAI released GPT-3 with 175B parameters, demonstrating remarkable few-shot learning capabilities and the potential of scale in language models.</p>
+          </div>
+        </div>
+
+        <!-- 2021 -->
+        <div class="timeline-item left" data-category="model">
+          <div class="timeline-content">
+            <div class="timeline-year">2021</div>
+            <span class="timeline-category model">Model</span>
+            <h3 class="timeline-header">DALL-E and CLIP</h3>
+            <p>OpenAI introduced DALL-E for text-to-image generation and CLIP for connecting text and images, marking major advances in multimodal AI capabilities.</p>
+            
+            <img src="https://openai.com/content/images/2022/01/dall-e-splash.jpg" alt="DALL-E Generated Images" class="timeline-image">
+            
+            <div class="technical-details">
+              These two models represented significant advances in multimodal AI:
+              <ul>
+                <li><strong>DALL-E</strong>: A 12-billion parameter version of GPT-3 trained to generate images from text descriptions</li>
+                <li><strong>CLIP (Contrastive Language-Image Pre-training)</strong>: Trained on 400 million text-image pairs to learn robust image representations from natural language supervision</li>
+              </ul>
+              CLIP's training approach involved:  
+              <ul>
+                <li>Predicting which caption goes with which image in a batch</li>
+                <li>Learning a joint embedding space for images and text</li>
+                <li>Enabling zero-shot transfer to many visual classification tasks</li>
+              </ul>
+            </div>
+            
+            <div class="reference-section">
+              <a href="https://arxiv.org/abs/2102.12092" target="_blank" class="paper-link">Read DALL-E paper: "Zero-Shot Text-to-Image Generation" (2021)</a>
+              <br>
+              <a href="https://arxiv.org/abs/2103.00020" target="_blank" class="paper-link">Read CLIP paper: "Learning Transferable Visual Models From Natural Language Supervision" (2021)</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2022 -->
+        <div class="timeline-item right" data-category="model">
+          <div class="timeline-content">
+            <div class="timeline-year">2022</div>
+            <span class="timeline-category model">Model</span>
+            <h3 class="timeline-header">ChatGPT</h3>
+            <p>OpenAI released ChatGPT, bringing conversational AI to mainstream adoption and demonstrating how RLHF (Reinforcement Learning from Human Feedback) could improve model alignment.</p>
+          </div>
+        </div>
+
+        <!-- 2022 -->
+        <div class="timeline-item left" data-category="model">
+          <div class="timeline-content">
+            <div class="timeline-year">2022</div>
+            <span class="timeline-category model">Model</span>
+            <h3 class="timeline-header">Stable Diffusion</h3>
+            <p>Stability AI released Stable Diffusion, an open-source text-to-image model that democratized image generation technology.</p>
+          </div>
+        </div>
+
+        <!-- 2023 -->
+        <div class="timeline-item right" data-category="model">
+          <div class="timeline-content">
+            <div class="timeline-year">2023</div>
+            <span class="timeline-category model">Model</span>
+            <h3 class="timeline-header">GPT-4</h3>
+            <p>OpenAI released GPT-4 with multimodal capabilities, accepting both image and text inputs and demonstrating significant improvements in reasoning.</p>
+          </div>
+        </div>
+
+        <!-- 2023 -->
+        <div class="timeline-item left" data-category="company">
+          <div class="timeline-content">
+            <div class="timeline-year">2023</div>
+            <span class="timeline-category company">Company</span>
+            <h3 class="timeline-header">Anthropic Claude</h3>
+            <p>Anthropic released Claude, a constitutional AI assistant trained with a focus on helpfulness, harmlessness, and honesty through constitutional AI methods.</p>
+          </div>
+        </div>
+
+        <!-- 2023 -->
+        <div class="timeline-item right" data-category="company">
+          <div class="timeline-content">
+            <div class="timeline-year">2023</div>
+            <span class="timeline-category company">Company</span>
+            <h3 class="timeline-header">Google Bard/Gemini</h3>
+            <p>Google entered the consumer AI assistant space with Bard (later Gemini), leveraging their PaLM and Gemini models.</p>
+          </div>
+        </div>
+
+        <!-- 2024 -->
+        <div class="timeline-item left" data-category="model">
+          <div class="timeline-content">
+            <div class="timeline-year">2024</div>
+            <span class="timeline-category model">Model</span>
+            <h3 class="timeline-header">Claude 3 and GPT-4o</h3>
+            <p>Anthropic released Claude 3 series (Haiku, Sonnet, Opus) while OpenAI released GPT-4o, both advancing multimodal capabilities and real-time interactions.</p>
+            
+            <img src="https://cdn.prod.website-files.com/62fd92e914389a1f366b2511/65df7ca8264a8123b05a0138_Claude%20family%20of%20models.png" alt="Claude 3 Model Family" class="timeline-image">
+            
+            <div class="technical-details">
+              These 2024 models pushed the boundaries of LLM capabilities:
+              <ul>
+                <li><strong>Claude 3</strong>:
+                  <ul>
+                    <li><em>Opus</em>: Highest capability model for complex reasoning</li>
+                    <li><em>Sonnet</em>: Balance of intelligence and speed</li>
+                    <li><em>Haiku</em>: Fastest, most compact model</li>
+                    <li>Advanced multimodal abilities to process text, images, documents, and code</li>
+                  </ul>
+                </li>
+                <li><strong>GPT-4o</strong>:
+                  <ul>
+                    <li>"o" stands for "omni" - unified text, vision, and audio capabilities</li>
+                    <li>Near real-time response speed (100ms latency)</li>
+                    <li>Video understanding capabilities</li>
+                    <li>Improved reasoning, coding, and instruction following</li>
+                  </ul>
+                </li>
+              </ul>
+              Both model families represent significant leaps in responsiveness, multimodal understanding, and reasoning capabilities.
+            </div>
+            
+            <div class="reference-section">
+              <a href="https://www.anthropic.com/claude" target="_blank" class="paper-link">Learn more about Claude 3 models</a>
+              <br>
+              <a href="https://openai.com/index/hello-gpt-4o/" target="_blank" class="paper-link">Learn more about GPT-4o</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2024 -->
+        <div class="timeline-item right" data-category="milestone">
+          <div class="timeline-content">
+            <div class="timeline-year">2024</div>
+            <span class="timeline-category milestone">Milestone</span>
+            <h3 class="timeline-header">Agent Frameworks</h3>
+            <p>The emergence of sophisticated AI agent frameworks like LangGraph, enabling more complex reasoning, planning, and autonomous task completion.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>About This Timeline</h3>
+        <p>This interactive timeline highlights key developments in the GenAI field. It is not exhaustive but focuses on the breakthrough moments that have shaped the evolution of generative AI technologies. Use the filter buttons to focus on specific types of milestones.</p>
+        
+        <p>The color-coded categories help identify different types of developments:</p>
+        <ul>
+          <li><span style="background-color: #e3f2fd; color: #1976d2; padding: 2px 6px; border-radius: 4px;">Models</span> - Specific AI models released</li>
+          <li><span style="background-color: #e8f5e9; color: #388e3c; padding: 2px 6px; border-radius: 4px;">Architectures</span> - Fundamental design approaches</li>
+          <li><span style="background-color: #fff3e0; color: #f57c00; padding: 2px 6px; border-radius: 4px;">Milestones</span> - Significant events and breakthroughs</li>
+          <li><span style="background-color: #f3e5f5; color: #9c27b0; padding: 2px 6px; border-radius: 4px;">Companies</span> - Major corporate developments</li>
+        </ul>
+        
+        <h3>Key Research Papers</h3>
+        <p>For further reading on the foundational papers that shaped GenAI development:</p>
+        <ul class="research-papers">
+          <li><a href="https://www.cs.toronto.edu/~hinton/absps/fastnc.pdf" target="_blank">A Fast Learning Algorithm for Deep Belief Nets</a> (2006) - Hinton et al.</li>
+          <li><a href="https://arxiv.org/abs/1406.2661" target="_blank">Generative Adversarial Networks</a> (2014) - Goodfellow et al.</li>
+          <li><a href="https://arxiv.org/abs/1706.03762" target="_blank">Attention Is All You Need</a> (2017) - Vaswani et al.</li>
+          <li><a href="https://arxiv.org/abs/1810.04805" target="_blank">BERT: Pre-training of Deep Bidirectional Transformers</a> (2018) - Devlin et al.</li>
+          <li><a href="https://arxiv.org/abs/2005.14165" target="_blank">Language Models are Few-Shot Learners</a> (2020) - Brown et al.</li>
+          <li><a href="https://arxiv.org/abs/2102.12092" target="_blank">Zero-Shot Text-to-Image Generation</a> (2021) - DALL-E by Ramesh et al.</li>
+          <li><a href="https://arxiv.org/abs/2103.00020" target="_blank">Learning Transferable Visual Models From Natural Language</a> (2021) - CLIP by Radford et al.</li>
+          <li><a href="https://arxiv.org/abs/2203.02155" target="_blank">Training Language Models to Follow Instructions</a> (2022) - Ouyang et al.</li>
+        </ul>
+        
+        <div class="module-navigation">
+          <div class="nav-links">
+            <a href="../day1/genai-evolution.html" class="prev-link">← Back to GenAI Evolution</a>
+            <a href="index.html" class="next-link">View All Notebooks →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="../day1/genai-evolution.html" class="active">GenAI Evolution</a></li>
+            <li><a href="../day1/llm-basics.html">LLM Basics</a></li>
+            <li><a href="../day2/frameworks.html">LLM Frameworks</a></li>
+            <li><a href="../day3/rag.html">RAG Systems</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Resources</h3>
+          <ul>
+            <li><a href="index.html">Python Notebooks</a></li>
+            <li><a href="../resources/glossary.html">GenAI Glossary</a></li>
+            <li><a href="../resources/reading.html">Further Reading</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="copyright">
+        <p>&copy; 2025 GenAI Training. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Filter functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const filterButtons = document.querySelectorAll('.filter-button');
+      const timelineItems = document.querySelectorAll('.timeline-item');
+      
+      filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          // Update active button
+          filterButtons.forEach(btn => btn.classList.remove('active'));
+          this.classList.add('active');
+          
+          const filter = this.getAttribute('data-filter');
+          
+          // Filter timeline items
+          timelineItems.forEach(item => {
+            if (filter === 'all' || item.getAttribute('data-category') === filter) {
+              item.style.display = 'block';
+            } else {
+              item.style.display = 'none';
+            }
+          });
+        });
+      });
+      
+      // Add scroll animation
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('show');
+          }
+        });
+      }, {threshold: 0.1});
+      
+      timelineItems.forEach(item => {
+        observer.observe(item);
+      });
+    });
+  </script>
+</body>
+</html>istener('DOMContentLoaded', function() {
+      const filterButtons = document.querySelectorAll('.filter-button');
+      const timelineItems = document.querySelectorAll('.timeline-item');
+      
+      filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          // Update active button
+          filterButtons.forEach(btn => btn.classList.remove('active'));
+          this.classList.add('active');
+          
+          const filter = this.getAttribute('data-filter');
+          
+          // Filter timeline items
+          timelineItems.forEach(item => {
+            if (filter === 'all' || item.getAttribute('data-category') === filter) {
+              item.style.display = 'block';
+            } else {
+              item.style.display = 'none';
+            }
+          });
+        });
+      });
+      
+      // Add scroll animation
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('show');
+          }
+        });
+      }, {threshold: 0.1});
+      
+      timelineItems.forEach(item => {
+        observer.observe(item);
+      });
+    });
+  </script>
+</body>
+</html>
