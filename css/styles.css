@@ -79,6 +79,19 @@ nav ul li a:hover {
   color: var(--primary-color);
 }
 
+/* Active link styling */
+nav ul li a.active {
+  color: var(--primary-color);
+  font-weight: bold;
+}
+
+/* Active dropdown parent styling */
+nav ul li.dropdown > a.active {
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--primary-color);
+  padding-bottom: 3px;
+}
+
 .dropdown {
   position: relative;
 }
